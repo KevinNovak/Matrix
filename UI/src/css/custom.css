@@ -36,8 +36,9 @@ div.outline.dashed {
 }
 
 #grid {
-    width: 100%;
-    height: 100%;        
+    width: 80%;
+    height: 80%;
+    margin: 10%;    
 }
 
 .cell {
@@ -47,3 +48,7 @@ div.outline.dashed {
     height: 12.5%;
     width: 12.5%;    
 }
+
+.no-padding {
+    padding: 0 !important;
+ }
