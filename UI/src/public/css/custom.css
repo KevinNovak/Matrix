@@ -1,4 +1,9 @@
 /* Used for aspect ratios */
+#live-stream {
+    width: 90%;
+    height: 90%;
+    margin: 5%;
+}
 
 .btn {
     display: block;
