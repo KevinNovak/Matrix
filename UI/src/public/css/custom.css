@@ -32,8 +32,8 @@ html {
 }
 
 div.outline {
-    outline-width: 2px;
-    outline-offset: -2px;
+    outline-width: 3px;
+    outline-offset: -3px;
 }
 
 div.outline.solid {
