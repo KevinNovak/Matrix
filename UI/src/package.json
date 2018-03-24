@@ -12,5 +12,8 @@
     "ui"
   ],
   "author": "Kevin Novak",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express": "4.16.3"
+  }
 }
