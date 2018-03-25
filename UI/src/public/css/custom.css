@@ -81,6 +81,10 @@
     width: 100%;
 }
 
+.center-text {
+    text-align: center;
+}
+
 .no-padding {
     padding: 0 !important;
 }
