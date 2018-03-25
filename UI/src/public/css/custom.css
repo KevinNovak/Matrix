@@ -1,11 +1,18 @@
 /* Containers */
 
-#led-grid-container {
+#led-grid-container,
+#live-stream-container {
     padding: 15px;
 }
 
 #led-grid-border {
+    /* 1:1 Apsect Ratio */
     padding-bottom: 100%;
+}
+
+#live-stream-border {
+    /* 16:9 Apsect Ratio */
+    padding-bottom: 56.25%;
 }
 
 #led-grid-controller {
@@ -79,9 +86,8 @@
 /* Live stream */
 
 #live-stream {
-    width: calc(100% - 30px);
-    height: calc(100% - 30px);
-    margin: 15px;
+    width: 100%;
+    height: 100%;
 }
 
 /* Outlines */
@@ -118,7 +124,8 @@ div.stretchy-wrapper {
     position: relative;
 }
 
-div.stretchy-wrapper>div {
+div.stretchy-wrapper>div,
+div.stretchy-wrapper>iframe {
     position: absolute;
     top: 0;
     bottom: 0;
