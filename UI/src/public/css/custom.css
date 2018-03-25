@@ -1,18 +1,7 @@
-/* Used for aspect ratios */
-
 #live-stream {
     width: calc(100% - 30px);
     height: calc(100% - 30px);
     margin: 15px;
-}
-
-.btn {
-    display: block;
-    height: 70%;
-    width: 70%;
-    border-radius: 50%;
-    border: 1px solid black;
-    margin: 0 auto;
 }
 
 div.stretchy-wrapper {
@@ -40,16 +29,31 @@ div.outline.dashed {
     outline-style: dashed
 }
 
+/* Helpful */
+
 .center {
     margin: 0 auto;
     width: 100%;
 }
 
-#grid {
+.no-padding {
+    padding: 0 !important;
+}
+
+/* Grids */
+
+#led-grid {
     width: 90%;
     height: 90%;
     margin: 5%;
 }
+
+#color-grid {
+    width: 100%;
+    height: 100%;
+}
+
+/* Cells */
 
 .cell {
     outline: 1px dashed aqua;
@@ -70,19 +74,21 @@ div.outline.dashed {
     width: 25%;
 }
 
-.colorBtn {
+/* Buttons */
+
+.btn {
     display: block;
-    height: 70%;
-    width: 80%;
     border: 1px solid black;
     margin: 0 auto;
 }
 
-.colorGrid {
-    width: 100%;
-    height: 100%;
+.btn.led {
+    height: 70%;
+    width: 70%;
+    border-radius: 50%;
 }
 
-.no-padding {
-    padding: 0 !important;
+.btn.color {
+    height: 70%;
+    width: 80%;
 }
