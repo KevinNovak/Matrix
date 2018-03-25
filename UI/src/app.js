@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 
 const PORT = 3000;
 
@@ -6,7 +7,7 @@ const PORT = 3000;
 var app = express();
 
 // Static files
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, './public')));
 
 // Start server
 var server = app.listen(PORT, () => {
