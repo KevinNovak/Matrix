@@ -52,25 +52,22 @@ div.outline.dashed {
 }
 
 .cell {
-    outline: 1px dashed green;
-    outline-offset: -1px;
-    float: left;
-    height: 12.5%;
-    width: 12.5%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.colorCell {
     outline: 1px dashed aqua;
     outline-offset: -1px;
-    float: left;
-    height: 25%;
-    width: 25%;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    float: left;
+}
+
+.cell.led {
+    height: 12.5%;
+    width: 12.5%;
+}
+
+.cell.color {
+    height: 25%;
+    width: 25%;
 }
 
 .colorBtn {
