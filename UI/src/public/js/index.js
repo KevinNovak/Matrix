@@ -10,10 +10,21 @@ window.onload = () => {
     }
 };
 
+var activeColor = "color-1";
+
 function ledClicked() {
-    alert(`${this.id} clicked!`);
+    console.log(`${this.id} clicked!`);
+    var color = colors[activeColor];
+    this.style["background-color"] = color;
 }
 
 function colorClicked() {
-    alert(`${this.id} clicked!`);
+    console.log(`${this.id} clicked!`);
+    activeColor = this.id;
 }
+
+var colors = {
+    "color-1": "red",
+    "color-2": "green",
+    "color-3": "blue"
+};
