@@ -1,3 +1,18 @@
+/* Containers */
+
+#led-grid-container {
+    padding: 15px;
+}
+
+#led-grid-border {
+    padding-bottom: 100%;
+}
+
+#led-grid-controller {
+    height: 150px;
+    padding: 15px
+}
+
 /* Grids */
 
 #led-grid {
