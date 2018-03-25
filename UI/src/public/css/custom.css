@@ -9,7 +9,7 @@
 }
 
 #led-grid-controller {
-    height: 150px;
+    height: 175px;
     padding: 15px
 }
 
@@ -23,7 +23,12 @@
 
 #color-grid {
     width: 100%;
-    height: 100%;
+    height: 80%;
+}
+
+#control-grid {
+    width: 100%;
+    height: 20%;
 }
 
 /* Cells */
@@ -45,6 +50,11 @@
 .cell.color {
     height: 25%;
     width: 25%;
+}
+
+.cell.control {
+    height: 100%;
+    width: 50%;
 }
 
 /* Buttons */
