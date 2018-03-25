@@ -78,7 +78,8 @@
     border-radius: 50%;
 }
 
-.btn.color {
+.btn.color,
+.btn.control {
     height: 70%;
     width: 80%;
 }
