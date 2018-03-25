@@ -17,9 +17,10 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-5 offset-xl-1 no-padding outline dashed" style="outline-color: red;">
-                <div class="outline dashed" style="outline-color:darkblue; padding:15px">
-                    <div class="stretchy-wrapper center outline solid" style="padding-bottom:100%; outline-color: black">
+                <div id="led-grid-container" class="outline dashed" style="outline-color:darkblue; padding:15px">
+                    <div id="led-grid-border" class="stretchy-wrapper center outline solid" style="padding-bottom:100%; outline-color: black">
                         <div id=led-grid>
+                            <!-- Row 1 -->
                             <div class="cell led">
                                 <button class="btn led"></button>
                             </div>
@@ -45,6 +46,7 @@
                                 <button class="btn led"></button>
                             </div>
 
+                            <!-- Row 2 -->
                             <div class=" cell led">
                                 <button class="btn led"></button>
                             </div>
@@ -70,6 +72,7 @@
                                 <button class="btn led"></button>
                             </div>
 
+                            <!-- Row 3 -->
                             <div class=" cell led">
                                 <button class="btn led"></button>
                             </div>
@@ -95,6 +98,7 @@
                                 <button class="btn led"></button>
                             </div>
 
+                            <!-- Row 4 -->
                             <div class=" cell led">
                                 <button class="btn led"></button>
                             </div>
@@ -120,6 +124,7 @@
                                 <button class="btn led"></button>
                             </div>
 
+                            <!-- Row 5 -->
                             <div class=" cell led">
                                 <button class="btn led"></button>
                             </div>
@@ -145,6 +150,7 @@
                                 <button class="btn led"></button>
                             </div>
 
+                            <!-- Row 6 -->
                             <div class=" cell led">
                                 <button class="btn led"></button>
                             </div>
@@ -170,6 +176,7 @@
                                 <button class="btn led"></button>
                             </div>
 
+                            <!-- Row 7 -->
                             <div class=" cell led">
                                 <button class="btn led"></button>
                             </div>
@@ -195,6 +202,7 @@
                                 <button class="btn led"></button>
                             </div>
 
+                            <!-- Row 8 -->
                             <div class=" cell led">
                                 <button class="btn led"></button>
                             </div>
@@ -220,10 +228,14 @@
                                 <button class="btn led"></button>
                             </div>
                         </div>
+                        <!-- End led-grid -->
                     </div>
+                    <!-- End led-grid-border -->
                 </div>
-                <div id="controller" class="outline dashed" style="height:150px; outline-color:darkmagenta; padding:15px">
+                <!-- End led-grid-container -->
+                <div id="led-grid-controller" class="outline dashed" style="height:150px; outline-color:darkmagenta; padding:15px">
                     <div id="color-grid">
+                        <!-- Row 1 -->
                         <div class="cell color">
                             <button class="btn color"></button>
                         </div>
@@ -237,6 +249,7 @@
                             <button class="btn color"></button>
                         </div>
 
+                        <!-- Row 2 -->
                         <div class="cell color">
                             <button class="btn color"></button>
                         </div>
@@ -250,6 +263,7 @@
                             <button class="btn color"></button>
                         </div>
 
+                        <!-- Row 3 -->
                         <div class="cell color">
                             <button class="btn color"></button>
                         </div>
@@ -263,6 +277,7 @@
                             <button class="btn color"></button>
                         </div>
 
+                        <!-- Row 4 -->
                         <div class="cell color">
                             <button class="btn color"></button>
                         </div>
@@ -276,8 +291,11 @@
                             <button class="btn color"></button>
                         </div>
                     </div>
+                    <!-- End color-grid -->
                 </div>
+                <!-- End led-grid-controller -->
             </div>
+            <!-- End column -->
             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-5 no-padding outline dashed" style="outline-color: purple;">
                 <iframe id="live-stream" src="https://www.youtube.com/embed/live_stream?channel=UCeLYdfdOvP-lMv-9MzZpfag&autoplay=1" frameborder="0"
                     allowfullscreen></iframe>
