@@ -1,4 +1,5 @@
 var ledButtons, colorButtons, clearButton, setButton;
+var activeColorButton;
 
 window.onload = () => {
     // Select elements
@@ -16,19 +17,27 @@ window.onload = () => {
     }
     clearButton.addEventListener('click', clearAll);
     setButton.addEventListener('click', setAll);
-};
 
-var activeColor = "color-1";
+    setActive(colorButtons[0]);
+};
 
 function ledClicked() {
     console.log(`${this.id} clicked!`);
-    var color = colors[activeColor];
+    var color = colors[activeColorButton.id];
     this.style["background-color"] = color;
 }
 
 function colorClicked() {
     console.log(`${this.id} clicked!`);
-    activeColor = this.id;
+    setActive(this);
+}
+
+function setActive(colorButton) {
+    if (activeColorButton) {
+        activeColorButton.classList.remove('active');
+    }
+    activeColorButton = colorButton;
+    activeColorButton.classList.add('active');
 }
 
 function clearAll() {
@@ -41,7 +50,7 @@ function clearAll() {
 function setAll() {
     console.log('Setting all leds');
     for (ledButton of ledButtons) {
-        ledButton.style["background-color"] = colors[activeColor];
+        ledButton.style["background-color"] = colors[activeColorButton.id];
     }
 }
 

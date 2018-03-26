@@ -81,6 +81,12 @@
 .btn.color {
     height: 70%;
     width: 80%;
+    opacity: 0.6;
+}
+
+.btn.color.active {
+    border: 5 px solid black;
+    opacity: 1;
 }
 
 .btn.control {
