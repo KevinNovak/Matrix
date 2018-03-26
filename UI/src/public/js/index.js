@@ -1,13 +1,21 @@
-var ledButtons = document.getElementsByClassName('btn led');
-var colorButtons = document.getElementsByClassName('btn color');
+var ledButtons, colorButtons, clearButton, setButton;
 
 window.onload = () => {
+    // Select elements
+    ledButtons = document.getElementsByClassName('btn led');
+    colorButtons = document.getElementsByClassName('btn color');
+    clearButton = document.getElementById('control-clear');
+    setButton = document.getElementById('control-set');
+
+    // Register events
     for (ledButton of ledButtons) {
         ledButton.addEventListener('click', ledClicked);
     }
     for (colorButton of colorButtons) {
         colorButton.addEventListener('click', colorClicked);
     }
+    clearButton.addEventListener('click', clearAll);
+    setButton.addEventListener('click', setAll);
 };
 
 var activeColor = "color-1";
@@ -21,6 +29,20 @@ function ledClicked() {
 function colorClicked() {
     console.log(`${this.id} clicked!`);
     activeColor = this.id;
+}
+
+function clearAll() {
+    console.log('Clearing all leds');
+    for (ledButton of ledButtons) {
+        ledButton.style["background-color"] = colors["color-16"];
+    }
+}
+
+function setAll() {
+    console.log('Setting all leds');
+    for (ledButton of ledButtons) {
+        ledButton.style["background-color"] = colors[activeColor];
+    }
 }
 
 var colors = {
