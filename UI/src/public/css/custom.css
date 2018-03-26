@@ -132,6 +132,12 @@
     margin-top: 30px;
 }
 
+/* Images */
+#github-logo {
+    height: 50%;
+    width: auto
+}
+
 /* Helpful */
 
 .center {
