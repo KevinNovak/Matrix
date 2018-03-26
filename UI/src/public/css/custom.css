@@ -78,10 +78,15 @@
     border-radius: 50%;
 }
 
-.btn.color,
+.btn.color {
+    height: 70%;
+    width: 80%;
+}
+
 .btn.control {
     height: 70%;
     width: 80%;
+    font-size: 10px;
 }
 
 /* Live stream */
