@@ -5,6 +5,11 @@
     padding: 15px;
 }
 
+#description-container {
+    padding: 15px;
+    height: calc(50% + 30px);
+}
+
 #led-grid-border {
     /* 1:1 Apsect Ratio */
     padding-bottom: 100%;
@@ -15,9 +20,13 @@
     padding-bottom: 56.25%;
 }
 
+#description-border {
+    height: 100%;
+}
+
 #led-grid-controller {
     height: 175px;
-    padding: 15px
+    padding: 15px;
 }
 
 /* Grids */
@@ -114,7 +123,7 @@
 }
 
 .outline.dashed {
-    outline-style: dashed
+    outline-style: dashed;
 }
 
 /* Text */
