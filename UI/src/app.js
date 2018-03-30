@@ -1,7 +1,11 @@
 const express = require('express');
 const path = require('path');
+const mosca = require('./mosca.js');
 
-const PORT = 3000;
+const httpPort = 3000;
+
+// Start mosca broker
+mosca.start();
 
 // App setup
 var app = express();
@@ -10,6 +14,6 @@ var app = express();
 app.use(express.static(path.join(__dirname, './public')));
 
 // Start server
-var server = app.listen(PORT, () => {
-    console.log(`Server started on port ${PORT}`);
+var server = app.listen(httpPort, () => {
+    console.log(`Server started on port ${httpPort}`);
 });

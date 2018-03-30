@@ -14,6 +14,7 @@
   "author": "Kevin Novak",
   "license": "ISC",
   "dependencies": {
-    "express": "4.16.3"
+    "express": "4.16.3",
+    "mosca": "2.8.0"
   }
 }
