@@ -50,8 +50,8 @@
 /* Cells */
 
 .cell {
-    /* outline: 1px dashed aqua; */
-    /* outline-offset: -1px; */
+    outline: 1px dashed aqua;
+    outline-offset: -1px;
     display: flex;
     flex-direction: column;
     justify-content: center;
