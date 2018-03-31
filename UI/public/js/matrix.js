@@ -2,6 +2,9 @@ var ledButtons, colorButtons, clearButton, setButton;
 var activeColorButton;
 
 const clearColor = 'color-16';
+const ledTopic = 'matrix/led';
+const clearTopic = 'matrix/clear';
+const setTopic = 'matrix/set';
 
 document.onreadystatechange = () => {
     // Select elements
@@ -67,7 +70,7 @@ function publishLed(ledId, color) {
         color
     });
 
-    client.publish('matrix/led', payload);
+    client.publish(ledTopic, payload);
 }
 
 // ==============================================
@@ -92,7 +95,7 @@ function publishSet(color) {
         color
     });
 
-    client.publish('matrix/set', payload);
+    client.publish(setTopic, payload);
 }
 
 // ==============================================
@@ -112,7 +115,7 @@ function clearAll() {
 }
 
 function publishClear() {
-    client.publish('matrix/clear');
+    client.publish(clearTopic);
 }
 
 // ==============================================
@@ -137,9 +140,9 @@ var client = mqtt.connect('ws://localhost:80');
 
 // Subscribe to the "mqtt/demo" topic
 // (The same one we are publishing to for this example)
-client.subscribe('matrix/led');
-client.subscribe('matrix/clear');
-client.subscribe('matrix/set');
+client.subscribe(ledTopic);
+client.subscribe(clearTopic);
+client.subscribe(setTopic);
 
 client.on('connect', () => {
     console.log('Connected to MQTT Broker.');
