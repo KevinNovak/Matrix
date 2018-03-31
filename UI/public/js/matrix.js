@@ -23,8 +23,9 @@ window.onload = () => {
 
 function ledClicked() {
     console.log(`${this.id} clicked!`);
-    var color = colors[activeColorButton.id];
-    this.style["background-color"] = color;
+    var color = activeColorButton.id;
+    stripColors(this);
+    this.classList.add(color);
     publishLed(this.id, color);
 }
 
@@ -42,7 +43,7 @@ function setActive(colorButton) {
 }
 
 function setAllClicked() {
-    var color = colors[activeColorButton.id];
+    var color = activeColorButton.id;
     setAll(color);
     publishSetAll(color);
 }
@@ -55,35 +56,18 @@ function clearAllClicked() {
 function clearAll() {
     console.log('Clearing all leds');
     for (ledButton of ledButtons) {
-        ledButton.style["background-color"] = colors["color-16"];
+        stripColors(ledButton);
+        ledButton.classList.add("color-16");
     }
 }
 
 function setAll(color) {
     console.log('Setting all leds');
     for (ledButton of ledButtons) {
-        ledButton.style["background-color"] = color;
+        stripColors(ledButton);
+        ledButton.classList.add(color);
     }
 }
-
-var colors = {
-    "color-1": "#b21f35",
-    "color-2": "#d82735",
-    "color-3": "#ff7435",
-    "color-4": "#ffa135",
-    "color-5": "#ffcb35",
-    "color-6": "#fff735",
-    "color-7": "#00753a",
-    "color-8": "#009e47",
-    "color-9": "#16dd36",
-    "color-10": "#0052a5",
-    "color-11": "#0079e7",
-    "color-12": "#06a9fc",
-    "color-13": "#681e7e",
-    "color-14": "#7d3cb5",
-    "color-15": "#bd7af6",
-    "color-16": "#dddddd"
-};
 
 // Connect to the MQTT Broker over WebSockets
 // The port here is the "http" port we specified on the MQTT Broker
@@ -128,7 +112,8 @@ client.on('close', () => {
 
 function setLedById(ledId, color) {
     var ledButton = document.getElementById(ledId);
-    ledButton.style['background-color'] = color;
+    stripColors(ledButton);
+    ledButton.classList.add(color);
 }
 
 function publishLed(ledId, color) {
@@ -150,6 +135,11 @@ function publishSetAll(color) {
     });
 
     client.publish('matrix/set', payload);
+}
+
+function stripColors(led) {
+    var regex = new RegExp('color\-[\\d]+', 'g');
+    led.className = led.className.replace(regex, '');
 }
 
 // // Close the connection
