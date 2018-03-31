@@ -1,6 +1,8 @@
 var ledButtons, colorButtons, clearButton, setButton;
 var activeColorButton;
 
+const clearColor = 'color-16';
+
 window.onload = () => {
     // Select elements
     ledButtons = document.getElementsByClassName('btn led');
@@ -24,8 +26,7 @@ window.onload = () => {
 function ledClicked() {
     console.log(`${this.id} clicked!`);
     var color = activeColorButton.id;
-    stripColors(this);
-    this.classList.add(color);
+    setLedColor(this, color);
     publishLed(this.id, color);
 }
 
@@ -56,16 +57,14 @@ function clearAllClicked() {
 function clearAll() {
     console.log('Clearing all leds');
     for (ledButton of ledButtons) {
-        stripColors(ledButton);
-        ledButton.classList.add("color-16");
+        setLedColor(ledButton, clearColor);
     }
 }
 
 function setAll(color) {
     console.log('Setting all leds');
     for (ledButton of ledButtons) {
-        stripColors(ledButton);
-        ledButton.classList.add(color);
+        setLedColor(ledButton, color);
     }
 }
 
@@ -112,8 +111,7 @@ client.on('close', () => {
 
 function setLedById(ledId, color) {
     var ledButton = document.getElementById(ledId);
-    stripColors(ledButton);
-    ledButton.classList.add(color);
+    setLedColor(ledButton, color);
 }
 
 function publishLed(ledId, color) {
@@ -137,9 +135,14 @@ function publishSetAll(color) {
     client.publish('matrix/set', payload);
 }
 
-function stripColors(led) {
+function setLedColor(ledButton, color) {
+    removeLedColors(ledButton);
+    ledButton.classList.add(color);
+}
+
+function removeLedColors(ledButton) {
     var regex = new RegExp('color\-[\\d]+', 'g');
-    led.className = led.className.replace(regex, '');
+    ledButton.className = ledButton.className.replace(regex, '');
 }
 
 // // Close the connection
