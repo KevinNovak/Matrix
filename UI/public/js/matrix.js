@@ -159,14 +159,14 @@ client.on('message', (topic, payload) => {
     console.log(`  Payload: ${payload}`);
 
     switch (topic) {
-        case 'matrix/led':
+        case ledTopic:
             payload = JSON.parse(payload);
             setLedById(payload.ledId, payload.color);
             break;
-        case 'matrix/clear':
+        case clearTopic:
             clearAll();
             break;
-        case 'matrix/set':
+        case setTopic:
             payload = JSON.parse(payload);
             setAll(payload.color);
             break;
