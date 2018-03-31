@@ -43,20 +43,22 @@ function setActive(colorButton) {
 // ==============================================
 function ledClicked() {
     var color = activeColorButton.id;
-    setLed(this, color);
-    publishLed(this.id, color);
+    if (!ledContainsColor(this, color)) {
+        setLed(this, color);
+        publishLed(this.id, color);
+    }
 }
 
 function setLedById(ledId, color) {
     var ledButton = document.getElementById(ledId);
-    setLed(ledButton, color);
+    if (!ledContainsColor(ledButton, color)) {
+        setLed(ledButton, color);
+    }
 }
 
 function setLed(ledButton, color) {
-    if (!ledButton.classList.contains(color)) {
-        removeLedColors(ledButton);
-        ledButton.classList.add(color);
-    }
+    removeLedColors(ledButton);
+    ledButton.classList.add(color);
 }
 
 function publishLed(ledId, color) {
@@ -79,7 +81,9 @@ function setAllClicked() {
 
 function setAll(color) {
     for (ledButton of ledButtons) {
-        setLed(ledButton, color);
+        if (!ledContainsColor(ledButton, color)) {
+            setLed(ledButton, color);
+        }
     }
 }
 
@@ -101,7 +105,9 @@ function clearAllClicked() {
 
 function clearAll() {
     for (ledButton of ledButtons) {
-        setLed(ledButton, clearColor);
+        if (!ledContainsColor(ledButton, clearColor)) {
+            setLed(ledButton, clearColor);
+        }
     }
 }
 
@@ -112,6 +118,10 @@ function publishClear() {
 // ==============================================
 // Helpers
 // ==============================================
+function ledContainsColor(ledButton, color) {
+    return ledButton.classList.contains(color);
+}
+
 function removeLedColors(ledButton) {
     var regex = new RegExp('color\-[\\d]+', 'g');
     ledButton.className = ledButton.className.replace(regex, '');
