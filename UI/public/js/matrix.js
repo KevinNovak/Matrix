@@ -53,8 +53,10 @@ function setLedById(ledId, color) {
 }
 
 function setLed(ledButton, color) {
-    removeLedColors(ledButton);
-    ledButton.classList.add(color);
+    if (!ledButton.classList.contains(color)) {
+        removeLedColors(ledButton);
+        ledButton.classList.add(color);
+    }
 }
 
 function publishLed(ledId, color) {
