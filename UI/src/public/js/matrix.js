@@ -16,7 +16,7 @@ window.onload = () => {
         colorButton.addEventListener('click', colorClicked);
     }
     clearButton.addEventListener('click', clearAllClicked);
-    setButton.addEventListener('click', setAll);
+    setButton.addEventListener('click', setAllClicked);
 
     setActive(colorButtons[0]);
 };
@@ -41,6 +41,12 @@ function setActive(colorButton) {
     activeColorButton.classList.add('active');
 }
 
+function setAllClicked() {
+    var color = colors[activeColorButton.id];
+    setAll(color);
+    publishSetAll(color);
+}
+
 function clearAllClicked() {
     clearAll();
     publishClear();
@@ -53,10 +59,10 @@ function clearAll() {
     }
 }
 
-function setAll() {
+function setAll(color) {
     console.log('Setting all leds');
     for (ledButton of ledButtons) {
-        ledButton.style["background-color"] = colors[activeColorButton.id];
+        ledButton.style["background-color"] = color;
     }
 }
 
@@ -88,6 +94,7 @@ var client = mqtt.connect('ws://localhost:80');
 // (The same one we are publishing to for this example)
 client.subscribe('matrix/led');
 client.subscribe('matrix/clear');
+client.subscribe('matrix/set');
 
 // Message recieved
 client.on('message', (topic, payload) => {
@@ -103,6 +110,9 @@ client.on('message', (topic, payload) => {
         case 'matrix/clear':
             clearAll();
             break;
+        case 'matrix/set':
+            payload = JSON.parse(payload);
+            setAll(payload.color);
         default:
             break;
     }
@@ -131,7 +141,15 @@ function publishLed(ledId, color) {
 }
 
 function publishClear() {
-    client.publish('matrix/clear', "{}");
+    client.publish('matrix/clear');
+}
+
+function publishSetAll(color) {
+    var payload = JSON.stringify({
+        color
+    });
+
+    client.publish('matrix/set', payload);
 }
 
 // // Close the connection
