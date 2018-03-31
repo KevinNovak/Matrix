@@ -25,6 +25,7 @@ function ledClicked() {
     console.log(`${this.id} clicked!`);
     var color = colors[activeColorButton.id];
     this.style["background-color"] = color;
+    publishLedChange(this.id, color);
 }
 
 function colorClicked() {
@@ -72,3 +73,48 @@ var colors = {
     "color-15": "#bd7af6",
     "color-16": "#dddddd"
 };
+
+// Connect to the MQTT Broker over WebSockets
+// The port here is the "http" port we specified on the MQTT Broker
+var client = mqtt.connect('ws://localhost:80');
+
+// Subscribe to the "mqtt/demo" topic
+// (The same one we are publishing to for this example)
+client.subscribe('matrix/led');
+
+// Message recieved
+client.on('message', (topic, payload) => {
+    // Log message
+    console.log(`  Topic: ${topic}`);
+    console.log(`  Payload: ${payload}`);
+
+    if (topic === 'matrix/led') {
+        payload = JSON.parse(payload);
+        setLed(payload.ledId, payload.color);
+    }
+});
+
+client.on('connect', () => {
+    console.log('Connected to MQTT Broker.');
+});
+
+client.on('close', () => {
+    console.log('Disconnected from MQTT Broker.');
+});
+
+function setLed(ledId, color) {
+    var ledButton = document.getElementById(ledId);
+    ledButton.style['background-color'] = color;
+}
+
+function publishLedChange(ledId, color) {
+    var payload = JSON.stringify({
+        ledId,
+        color
+    });
+
+    client.publish('matrix/led', payload);
+}
+
+// // Close the connection
+// client.end();
