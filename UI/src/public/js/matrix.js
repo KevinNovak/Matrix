@@ -15,7 +15,7 @@ window.onload = () => {
     for (colorButton of colorButtons) {
         colorButton.addEventListener('click', colorClicked);
     }
-    clearButton.addEventListener('click', clearAll);
+    clearButton.addEventListener('click', clearAllClicked);
     setButton.addEventListener('click', setAll);
 
     setActive(colorButtons[0]);
@@ -25,7 +25,7 @@ function ledClicked() {
     console.log(`${this.id} clicked!`);
     var color = colors[activeColorButton.id];
     this.style["background-color"] = color;
-    publishLedChange(this.id, color);
+    publishLed(this.id, color);
 }
 
 function colorClicked() {
@@ -39,6 +39,11 @@ function setActive(colorButton) {
     }
     activeColorButton = colorButton;
     activeColorButton.classList.add('active');
+}
+
+function clearAllClicked() {
+    clearAll();
+    publishClear();
 }
 
 function clearAll() {
@@ -82,6 +87,7 @@ var client = mqtt.connect('ws://localhost:80');
 // Subscribe to the "mqtt/demo" topic
 // (The same one we are publishing to for this example)
 client.subscribe('matrix/led');
+client.subscribe('matrix/clear');
 
 // Message recieved
 client.on('message', (topic, payload) => {
@@ -89,9 +95,16 @@ client.on('message', (topic, payload) => {
     console.log(`  Topic: ${topic}`);
     console.log(`  Payload: ${payload}`);
 
-    if (topic === 'matrix/led') {
-        payload = JSON.parse(payload);
-        setLed(payload.ledId, payload.color);
+    switch (topic) {
+        case 'matrix/led':
+            payload = JSON.parse(payload);
+            setLedById(payload.ledId, payload.color);
+            break;
+        case 'matrix/clear':
+            clearAll();
+            break;
+        default:
+            break;
     }
 });
 
@@ -103,18 +116,22 @@ client.on('close', () => {
     console.log('Disconnected from MQTT Broker.');
 });
 
-function setLed(ledId, color) {
+function setLedById(ledId, color) {
     var ledButton = document.getElementById(ledId);
     ledButton.style['background-color'] = color;
 }
 
-function publishLedChange(ledId, color) {
+function publishLed(ledId, color) {
     var payload = JSON.stringify({
         ledId,
         color
     });
 
     client.publish('matrix/led', payload);
+}
+
+function publishClear() {
+    client.publish('matrix/clear', "{}");
 }
 
 // // Close the connection
