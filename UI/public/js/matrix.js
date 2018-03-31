@@ -138,9 +138,9 @@ function removeLedColors(ledButton) {
 // ==============================================
 // Connect to the MQTT Broker over WebSockets
 // The port here is the "http" port we specified on the MQTT Broker
-//var client = mqtt.connect('ws://192.168.0.27:80');
 function setup() {
     var client = mqtt.connect('ws://localhost:80');
+    //var client = mqtt.connect('ws://192.168.0.27:80');
 
     // Subscribe to the "mqtt/demo" topic
     // (The same one we are publishing to for this example)
