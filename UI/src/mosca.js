@@ -2,7 +2,7 @@ const mosca = require('mosca');
 
 const mongoDbUrl = 'mongodb://localhost:27017/matrix';
 const mqttPort = 1883;
-const wsPort = 80;
+const wsPort = 8080;
 
 var moscaSettings = {
     port: mqttPort,
