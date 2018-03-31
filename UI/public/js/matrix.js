@@ -3,7 +3,7 @@ var activeColorButton;
 
 const clearColor = 'color-16';
 
-window.onload = () => {
+document.onreadystatechange = () => {
     // Select elements
     ledButtons = document.getElementsByClassName('btn led');
     colorButtons = document.getElementsByClassName('btn color');
