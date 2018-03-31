@@ -154,6 +154,7 @@ client.on('message', (topic, payload) => {
         case 'matrix/set':
             payload = JSON.parse(payload);
             setAll(payload.color);
+            break;
         default:
             break;
     }
