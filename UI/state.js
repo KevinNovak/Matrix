@@ -1,10 +1,18 @@
-var currentState = [{
+function setLed(ledId, color) {
+    for (led of leds) {
+        if (led.ledId === ledId) {
+            led.color = color;
+        }
+    }
+}
+
+var leds = [{
         ledId: "led-0-0",
         color: "color-16"
     },
     {
         ledId: "led-0-1",
-        color: "color-16"
+        color: "color-1"
     },
     {
         ledId: "led-0-2",
@@ -264,5 +272,6 @@ var currentState = [{
 ];
 
 module.exports = {
-    currentState
+    leds,
+    setLed
 };

@@ -15,7 +15,7 @@ var app = express();
 app.use(express.static(path.join(__dirname, './public')));
 
 app.get('/api/state', function (request, response) {
-    var body = state.currentState;
+    var body = state.leds;
     response.status(200);
     response.json(body);
 });
