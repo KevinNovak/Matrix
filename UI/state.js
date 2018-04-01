@@ -32,7 +32,7 @@ var leds = [{
     },
     {
         ledId: "led-0-1",
-        color: "color-1"
+        color: "color-16"
     },
     {
         ledId: "led-0-2",
