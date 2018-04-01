@@ -144,7 +144,11 @@ function setState() {
     request.onload = (e) => {
         if (request.readyState === 4) {
             if (request.status === 200) {
-                console.log(request.responseText);
+                var leds = JSON.parse(request.responseText);
+                console.log(leds);
+                for (led of leds) {
+                    setLedById(led.ledId, led.color);
+                }
             } else {
                 console.error(response.statusText);
             }
