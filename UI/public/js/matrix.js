@@ -4,6 +4,13 @@ var activeColorButton;
 
 const clearColor = 'color-16';
 
+// Local
+const apiUrl = 'http://localhost:3000/api';
+const wsUrl = 'ws://localhost:80';
+// Network
+//const apiUrl = 'http://192.168.0.27:3000/api';
+//const wsUrl = 'ws://192.168.0.27:80';
+
 const ledTopic = 'matrix/led';
 const clearTopic = 'matrix/clear';
 const setTopic = 'matrix/set';
@@ -140,8 +147,7 @@ function removeLedColors(ledButton) {
 // ==============================================
 function setState() {
     var request = new XMLHttpRequest();
-    request.open('GET', 'http://localhost:3000/api/state', true);
-    //request.open('GET', 'http://192.168.0.27:3000/api/state', true);
+    request.open('GET', apiUrl + '/state', true);
     request.onload = (e) => {
         if (request.readyState === 4) {
             if (request.status === 200) {
@@ -167,8 +173,7 @@ function setState() {
 // Connect to the MQTT Broker over WebSockets
 // The port here is the "http" port we specified on the MQTT Broker
 function setup() {
-    client = mqtt.connect('ws://localhost:80');
-    //client = mqtt.connect('ws://192.168.0.27:80');
+    client = mqtt.connect(wsUrl);
 
     // Subscribe to the "mqtt/demo" topic
     // (The same one we are publishing to for this example)
