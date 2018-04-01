@@ -1,3 +1,4 @@
+var client;
 var ledButtons, colorButtons, clearButton, setButton;
 var activeColorButton;
 
@@ -8,23 +9,26 @@ const clearTopic = 'matrix/clear';
 const setTopic = 'matrix/set';
 
 document.onreadystatechange = () => {
-    // Select elements
-    ledButtons = document.getElementsByClassName('btn led');
-    colorButtons = document.getElementsByClassName('btn color');
-    setButton = document.getElementById('control-set');
-    clearButton = document.getElementById('control-clear');
+    if (document.readyState === 'complete') {
+        setup();
+        // Select elements
+        ledButtons = document.getElementsByClassName('btn led');
+        colorButtons = document.getElementsByClassName('btn color');
+        setButton = document.getElementById('control-set');
+        clearButton = document.getElementById('control-clear');
 
-    // Register events
-    for (ledButton of ledButtons) {
-        ledButton.addEventListener('click', ledClicked);
-    }
-    for (colorButton of colorButtons) {
-        colorButton.addEventListener('click', colorClicked);
-    }
-    setButton.addEventListener('click', setAllClicked);
-    clearButton.addEventListener('click', clearAllClicked);
+        // Register events
+        for (ledButton of ledButtons) {
+            ledButton.addEventListener('click', ledClicked);
+        }
+        for (colorButton of colorButtons) {
+            colorButton.addEventListener('click', colorClicked);
+        }
+        setButton.addEventListener('click', setAllClicked);
+        clearButton.addEventListener('click', clearAllClicked);
 
-    setActive(colorButtons[0]);
+        setActive(colorButtons[0]);
+    }
 };
 
 // ==============================================
@@ -136,46 +140,48 @@ function removeLedColors(ledButton) {
 // ==============================================
 // Connect to the MQTT Broker over WebSockets
 // The port here is the "http" port we specified on the MQTT Broker
-var client = mqtt.connect('ws://localhost:80');
-//var client = mqtt.connect('ws://192.168.0.27:80');
+function setup() {
+    client = mqtt.connect('ws://localhost:80');
+    //var client = mqtt.connect('ws://192.168.0.27:80');
 
-// Subscribe to the "mqtt/demo" topic
-// (The same one we are publishing to for this example)
-client.subscribe(ledTopic);
-client.subscribe(clearTopic);
-client.subscribe(setTopic);
-client.subscribe(stateTopic);
+    // Subscribe to the "mqtt/demo" topic
+    // (The same one we are publishing to for this example)
+    client.subscribe(ledTopic);
+    client.subscribe(clearTopic);
+    client.subscribe(setTopic);
+    client.subscribe(stateTopic);
 
-client.on('connect', () => {
-    console.log('Connected to MQTT Broker.');
-});
+    client.on('connect', () => {
+        console.log('Connected to MQTT Broker.');
+    });
 
-client.on('close', () => {
-    console.log('Disconnected from MQTT Broker.');
-});
+    client.on('close', () => {
+        console.log('Disconnected from MQTT Broker.');
+    });
 
-// Message recieved
-client.on('message', (topic, payload) => {
-    // Log message
-    console.log(`  Topic: ${topic}`);
-    console.log(`  Payload: ${payload}`);
+    // Message recieved
+    client.on('message', (topic, payload) => {
+        // Log message
+        console.log(`  Topic: ${topic}`);
+        console.log(`  Payload: ${payload}`);
 
-    switch (topic) {
-        case ledTopic:
-            payload = JSON.parse(payload);
-            setLedById(payload.ledId, payload.color);
-            break;
-        case clearTopic:
-            clearAll();
-            break;
-        case setTopic:
-            payload = JSON.parse(payload);
-            setAll(payload.color);
-            break;
-        default:
-            break;
-    }
-});
+        switch (topic) {
+            case ledTopic:
+                payload = JSON.parse(payload);
+                setLedById(payload.ledId, payload.color);
+                break;
+            case clearTopic:
+                clearAll();
+                break;
+            case setTopic:
+                payload = JSON.parse(payload);
+                setAll(payload.color);
+                break;
+            default:
+                break;
+        }
+    });
+}
 
 // // Close the connection
 // client.end();
