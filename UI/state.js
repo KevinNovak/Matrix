@@ -1,4 +1,4 @@
-const clearColor = "color-16"
+const clearColor = "color-16";
 
 function setLedById(ledId, color) {
     for (led of leds) {
