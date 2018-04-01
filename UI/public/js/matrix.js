@@ -1,9 +1,3 @@
-var client;
-var ledButtons, colorButtons, clearButton, setButton;
-var activeColorButton;
-
-const clearColor = 'color-16';
-
 // Local
 const apiUrl = 'http://localhost:3000/api';
 const wsUrl = 'ws://localhost:80';
@@ -14,6 +8,12 @@ const wsUrl = 'ws://localhost:80';
 const ledTopic = 'matrix/led';
 const clearTopic = 'matrix/clear';
 const setTopic = 'matrix/set';
+
+const clearColor = 'color-16';
+
+var client;
+var ledButtons, colorButtons, clearButton, setButton;
+var activeColorButton;
 
 document.onreadystatechange = () => {
     if (document.readyState === 'complete') {
