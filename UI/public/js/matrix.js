@@ -135,6 +135,17 @@ function removeLedColors(ledButton) {
 }
 
 // ==============================================
+// API
+// ==============================================
+function getState() {
+    var request = new XMLHttpRequest();
+    request.open('GET', 'http://localhost:3000/api/state', false);
+    //request.open('GET', 'http://192.168.0.27:3000/api/state', false);
+    request.send(null);
+    return request.responseText;
+}
+
+// ==============================================
 // Mosca
 // ==============================================
 // Connect to the MQTT Broker over WebSockets
@@ -151,6 +162,7 @@ function setup() {
 
     client.on('connect', () => {
         console.log('Connected to MQTT Broker.');
+        console.log(getState());
     });
 
     client.on('close', () => {
@@ -180,6 +192,3 @@ function setup() {
         }
     });
 }
-
-// // Close the connection
-// client.end();
