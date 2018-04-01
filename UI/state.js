@@ -1,6 +1,26 @@
-function setLed(ledId, color) {
+const clearColor = "color-16"
+
+function setLedById(ledId, color) {
     for (led of leds) {
         if (led.ledId === ledId) {
+            if (led.color !== color) {
+                led.color = color;
+            }
+        }
+    }
+}
+
+function clearAll() {
+    for (led of leds) {
+        if (led.color !== clearColor) {
+            led.color = clearColor;
+        }
+    }
+}
+
+function setAll(color) {
+    for (led of leds) {
+        if (led.color !== color) {
             led.color = color;
         }
     }
@@ -273,5 +293,7 @@ var leds = [{
 
 module.exports = {
     leds,
-    setLed
+    setLedById,
+    clearAll,
+    setAll
 };
