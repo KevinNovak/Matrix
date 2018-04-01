@@ -3,6 +3,7 @@ var ledButtons, colorButtons, clearButton, setButton;
 var activeColorButton;
 
 const clearColor = 'color-16';
+
 const ledTopic = 'matrix/led';
 const clearTopic = 'matrix/clear';
 const setTopic = 'matrix/set';
