@@ -25,11 +25,13 @@ var start = () => {
     // Client connects
     server.on('clientConnected', (client) => {
         console.log(`Client "${client.id}" connected.`);
-        var message = {
-            topic: 'matrix/state',
-            payload: JSON.stringify(currentState)
-        };
-        server.publish(message, client);
+        setTimeout((client) => {
+            var message = {
+                topic: 'matrix/state',
+                payload: JSON.stringify(currentState)
+            };
+            server.publish(message, client);
+        }, 50);
     });
 
     // Client disconnects
