@@ -25,8 +25,6 @@ document.onreadystatechange = () => {
     clearButton.addEventListener('click', clearAllClicked);
 
     setActive(colorButtons[0]);
-
-    setup();
 };
 
 // ==============================================
@@ -138,48 +136,46 @@ function removeLedColors(ledButton) {
 // ==============================================
 // Connect to the MQTT Broker over WebSockets
 // The port here is the "http" port we specified on the MQTT Broker
-function setup() {
-    var client = mqtt.connect('ws://localhost:80');
-    //var client = mqtt.connect('ws://192.168.0.27:80');
+var client = mqtt.connect('ws://localhost:80');
+//var client = mqtt.connect('ws://192.168.0.27:80');
 
-    // Subscribe to the "mqtt/demo" topic
-    // (The same one we are publishing to for this example)
-    client.subscribe(ledTopic);
-    client.subscribe(clearTopic);
-    client.subscribe(setTopic);
-    client.subscribe(stateTopic);
-    
-    client.on('connect', () => {
-        console.log('Connected to MQTT Broker.');
-    });
-    
-    client.on('close', () => {
-        console.log('Disconnected from MQTT Broker.');
-    });
-    
-    // Message recieved
-    client.on('message', (topic, payload) => {
-        // Log message
-        console.log(`  Topic: ${topic}`);
-        console.log(`  Payload: ${payload}`);
-    
-        switch (topic) {
-            case ledTopic:
-                payload = JSON.parse(payload);
-                setLedById(payload.ledId, payload.color);
-                break;
-            case clearTopic:
-                clearAll();
-                break;
-            case setTopic:
-                payload = JSON.parse(payload);
-                setAll(payload.color);
-                break;
-            default:
-                break;
-        }
-    });
-}
+// Subscribe to the "mqtt/demo" topic
+// (The same one we are publishing to for this example)
+client.subscribe(ledTopic);
+client.subscribe(clearTopic);
+client.subscribe(setTopic);
+client.subscribe(stateTopic);
+
+client.on('connect', () => {
+    console.log('Connected to MQTT Broker.');
+});
+
+client.on('close', () => {
+    console.log('Disconnected from MQTT Broker.');
+});
+
+// Message recieved
+client.on('message', (topic, payload) => {
+    // Log message
+    console.log(`  Topic: ${topic}`);
+    console.log(`  Payload: ${payload}`);
+
+    switch (topic) {
+        case ledTopic:
+            payload = JSON.parse(payload);
+            setLedById(payload.ledId, payload.color);
+            break;
+        case clearTopic:
+            clearAll();
+            break;
+        case setTopic:
+            payload = JSON.parse(payload);
+            setAll(payload.color);
+            break;
+        default:
+            break;
+    }
+});
 
 // // Close the connection
 // client.end();
