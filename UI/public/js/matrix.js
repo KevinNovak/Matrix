@@ -137,12 +137,23 @@ function removeLedColors(ledButton) {
 // ==============================================
 // API
 // ==============================================
-function getState() {
+function setState() {
     var request = new XMLHttpRequest();
-    request.open('GET', 'http://localhost:3000/api/state', false);
-    //request.open('GET', 'http://192.168.0.27:3000/api/state', false);
+    request.open('GET', 'http://localhost:3000/api/state', true);
+    //request.open('GET', 'http://192.168.0.27:3000/api/state', true);
+    request.onload = (e) => {
+        if (request.readyState === 4) {
+            if (request.status === 200) {
+                console.log(request.responseText);
+            } else {
+                console.error(response.statusText);
+            }
+        }
+    };
+    request.onerror = (e) => {
+        console.error(response.statusText);
+    };
     request.send(null);
-    return request.responseText;
 }
 
 // ==============================================
@@ -162,7 +173,7 @@ function setup() {
 
     client.on('connect', () => {
         console.log('Connected to MQTT Broker.');
-        console.log(getState());
+        setState();
     });
 
     client.on('close', () => {
