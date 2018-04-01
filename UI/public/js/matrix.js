@@ -3,7 +3,6 @@ var ledButtons, colorButtons, clearButton, setButton;
 var activeColorButton;
 
 const clearColor = 'color-16';
-const stateTopic = 'matrix/state';
 const ledTopic = 'matrix/led';
 const clearTopic = 'matrix/clear';
 const setTopic = 'matrix/set';
@@ -149,7 +148,6 @@ function setup() {
     client.subscribe(ledTopic);
     client.subscribe(clearTopic);
     client.subscribe(setTopic);
-    client.subscribe(stateTopic);
 
     client.on('connect', () => {
         console.log('Connected to MQTT Broker.');
