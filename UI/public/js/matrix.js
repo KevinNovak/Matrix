@@ -146,25 +146,19 @@ function removeLedColors(ledButton) {
 // API
 // ==============================================
 function setState() {
-    var request = new XMLHttpRequest();
-    request.open('GET', apiUrl + '/state', true);
-    request.onload = (e) => {
-        if (request.readyState === 4) {
-            if (request.status === 200) {
-                var leds = JSON.parse(request.responseText);
-                console.log(leds);
-                for (led of leds) {
-                    setLedById(led.ledId, led.color);
-                }
-            } else {
-                console.error(response.statusText);
+    fetch(apiUrl + '/state')
+        .then((response) => {
+            return response.json();
+        })
+        .then((leds) => {
+            console.log(leds);
+            for (led of leds) {
+                setLedById(led.ledId, led.color);
             }
-        }
-    };
-    request.onerror = (e) => {
-        console.error(response.statusText);
-    };
-    request.send(null);
+        })
+        .catch((error) => {
+            console.log('Error:', error);
+        });
 }
 
 // ==============================================
