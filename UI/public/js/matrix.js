@@ -9,7 +9,7 @@ const ledTopic = 'matrix/led';
 const clearTopic = 'matrix/clear';
 const setTopic = 'matrix/set';
 
-const clearColor = 'color-16';
+const clearColor = 'color-20';
 
 var client;
 var ledButtons, colorButtons, clearButton, setButton;
