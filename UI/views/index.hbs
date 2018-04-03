@@ -44,69 +44,13 @@
                 <div id="led-grid-controller" class="outline dashed" style="outline-color: darkmagenta;">
                     <!-- <div id="led-grid-controller"> -->
                     <div id="color-grid">
-                        <!-- Row 1 -->
+                        {{#each colors}}
                         <div class="cell color">
-                            <button id="color-1" class="btn color color-1 active"></button>
+                            <button id="{{this}}" class="btn color {{this}}"></button>
                         </div>
-                        <div class="cell color">
-                            <button id="color-2" class="btn color color-2"></button>
-                        </div>
-                        <div class="cell color">
-                            <button id="color-3" class="btn color color-3"></button>
-                        </div>
-                        <div class="cell color">
-                            <button id="color-4" class="btn color color-4"></button>
-                        </div>
-                        <div class="cell color">
-                            <button id="color-5" class="btn color color-5"></button>
-                        </div>
-                        <div class="cell color">
-                            <button id="color-6" class="btn color color-6"></button>
-                        </div>
-
-                        <!-- Row 2 -->
-                        <div class="cell color">
-                            <button id="color-7" class="btn color color-7"></button>
-                        </div>
-                        <div class="cell color">
-                            <button id="color-8" class="btn color color-8"></button>
-                        </div>
-                        <div class="cell color">
-                            <button id="color-9" class="btn color color-9"></button>
-                        </div>
-                        <div class="cell color">
-                            <button id="color-10" class="btn color color-10"></button>
-                        </div>
-                        <div class="cell color">
-                            <button id="color-11" class="btn color color-11"></button>
-                        </div>
-                        <div class="cell color">
-                            <button id="color-12" class="btn color color-12"></button>
-                        </div>
-
-                        <!-- Row 3 -->
-                        <div class="cell color">
-                            <button id="color-13" class="btn color color-13"></button>
-                        </div>
-                        <div class="cell color">
-                            <button id="color-14" class="btn color color-14"></button>
-                        </div>
-                        <div class="cell color">
-                            <button id="color-15" class="btn color color-15"></button>
-                        </div>
-                        <div class="cell color">
-                            <button id="color-16" class="btn color color-16"></button>
-                        </div>
-                        <div class="cell color">
-                            <button id="color-17" class="btn color color-17"></button>
-                        </div>
-                        <div class="cell color">
-                            <button id="color-18" class="btn color color-18"></button>
-                        </div>
+                        {{/each}}
                     </div>
-                    <!-- End color-grid -->
                     <div id="control-grid">
-                        <!-- Special -->
                         <div class="cell control">
                             <button id="control-set" class="btn control no-padding">Set all</button>
                         </div>
@@ -114,7 +58,6 @@
                             <button id="control-clear" class="btn control no-padding">Clear all</button>
                         </div>
                     </div>
-                    <!-- End control-grid -->
                 </div>
                 <!-- End led-grid-controller -->
             </div>
