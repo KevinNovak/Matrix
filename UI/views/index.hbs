@@ -46,7 +46,11 @@
                     <div id="color-grid">
                         {{#each colors}}
                         <div class="cell color">
+                            {{#if @first}}
+                            <button id="{{this}}" class="btn color {{this}} active"></button>
+                            {{else}}
                             <button id="{{this}}" class="btn color {{this}}"></button>
+                            {{/if}}
                         </div>
                         {{/each}}
                     </div>
