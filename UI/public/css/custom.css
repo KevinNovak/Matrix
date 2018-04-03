@@ -64,8 +64,8 @@
 }
 
 .cell.color {
-    height: 25%;
-    width: 20%;
+    height: calc(100%/3);
+    width: calc(100%/6)
 }
 
 .cell.control {
@@ -135,6 +135,7 @@
 }
 
 /* Images */
+
 #github-logo {
     height: 50%;
     width: auto
