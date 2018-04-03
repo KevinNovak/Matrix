@@ -34,7 +34,7 @@ document.onreadystatechange = () => {
         setButton.addEventListener('click', setAllClicked);
         clearButton.addEventListener('click', clearAllClicked);
 
-        setActive(colorButtons[0]);
+        activeColorButton = colorButtons[0];
     }
 };
 
