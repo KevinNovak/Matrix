@@ -169,14 +169,9 @@ function setState() {
 function setup() {
     client = mqtt.connect(wsUrl);
 
-    // Subscribe to the "mqtt/demo" topic
-    // (The same one we are publishing to for this example)
-    client.subscribe(ledTopic);
-    client.subscribe(clearTopic);
-    client.subscribe(setTopic);
-
     client.on('connect', () => {
         console.log('Connected to MQTT Broker.');
+        subscribe();
         setState();
     });
 
@@ -214,4 +209,10 @@ function setup() {
                 break;
         }
     });
+}
+
+function subscribe() {
+    client.subscribe(ledTopic);
+    client.subscribe(clearTopic);
+    client.subscribe(setTopic);
 }
