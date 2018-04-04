@@ -138,7 +138,7 @@ function ledContainsColor(ledButton, color) {
 }
 
 function removeLedColors(ledButton) {
-    var regex = new RegExp('color\-[\\d]+', 'g');
+    var regex = new RegExp(/\bcolor-[\d]+\b/, 'g');
     ledButton.className = ledButton.className.replace(regex, '');
 }
 
