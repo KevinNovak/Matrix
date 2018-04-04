@@ -192,15 +192,23 @@ function setup() {
 
         switch (topic) {
             case ledTopic:
-                payload = JSON.parse(payload);
-                setLedById(payload.ledId, payload.color);
+                try {
+                    payload = JSON.parse(payload);
+                    setLedById(payload.ledId, payload.color);
+                } catch (error) {
+                    console.error(error);
+                }
                 break;
             case clearTopic:
                 clearAll();
                 break;
             case setTopic:
-                payload = JSON.parse(payload);
-                setAll(payload.color);
+                try {
+                    payload = JSON.parse(payload);
+                    setAll(payload.color);
+                } catch (error) {
+                    console.error(error);
+                }
                 break;
             default:
                 break;

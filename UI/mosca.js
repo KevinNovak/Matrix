@@ -45,15 +45,23 @@ var start = () => {
             console.log(`  Payload: ${packet.payload}`);
             switch (topic) {
                 case ledTopic:
-                    var payload = JSON.parse(packet.payload);
-                    state.setLedById(payload.ledId, payload.color);
+                    try {
+                        var payload = JSON.parse(packet.payload);
+                        state.setLedById(payload.ledId, payload.color);
+                    } catch (error) {
+                        console.error(error);
+                    }
                     break;
                 case clearTopic:
                     state.clearAll();
                     break;
                 case setTopic:
-                    var payload = JSON.parse(packet.payload);
-                    state.setAll(payload.color);
+                    try {
+                        var payload = JSON.parse(packet.payload);
+                        state.setAll(payload.color);
+                    } catch (error) {
+                        console.error(error);
+                    }
                     break;
                 default:
                     break;
