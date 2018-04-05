@@ -25,7 +25,7 @@ var moscaSettings = {
     }
 };
 
-var start = () => {
+function start() {
     var server = new mosca.Server(moscaSettings);
 
     // Client connects
