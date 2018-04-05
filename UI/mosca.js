@@ -25,6 +25,25 @@ var moscaSettings = {
     }
 };
 
+function handleLedTopic(payload) {
+    if (payload.ledId && payload.color) {
+        var ledId = payload.ledId;
+        var color = payload.color;
+        if (validate.isLed(ledId) && validate.isColor(color)) {
+            state.setLedById(ledId, color);
+        }
+    }
+}
+
+function handleSetTopic(payload) {
+    if (payload.color) {
+        var color = payload.color;
+        if (validate.isColor(color)) {
+            state.setAll(color);
+        }
+    }
+}
+
 function start() {
     var server = new mosca.Server(moscaSettings);
 
@@ -48,13 +67,7 @@ function start() {
                 case ledTopic:
                     try {
                         var payload = JSON.parse(packet.payload);
-                        if (payload.ledId && payload.color) {
-                            var ledId = payload.ledId;
-                            var color = payload.color;
-                            if (validate.isLed(ledId) && validate.isColor(color)) {
-                                state.setLedById(ledId, color);
-                            }
-                        }
+                        handleLedTopic(payload);
                     } catch (error) {
                         console.error(error);
                     }
@@ -65,12 +78,7 @@ function start() {
                 case setTopic:
                     try {
                         var payload = JSON.parse(packet.payload);
-                        if (payload.color) {
-                            var color = payload.color;
-                            if (validate.isColor(color)) {
-                                state.setAll(color);
-                            }
-                        }
+                        handleSetTopic(payload);
                     } catch (error) {
                         console.error(error);
                     }
