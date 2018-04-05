@@ -1,4 +1,5 @@
 const mosca = require('mosca');
+const validate = require('./validate.js');
 const state = require('./state.js');
 
 const mongoDbUrl = 'mongodb://localhost:27017/matrix';
@@ -47,7 +48,13 @@ var start = () => {
                 case ledTopic:
                     try {
                         var payload = JSON.parse(packet.payload);
-                        state.setLedById(payload.ledId, payload.color);
+                        if (payload.ledId && payload.color) {
+                            var ledId = payload.ledId;
+                            var color = payload.color;
+                            if (validate.isLed(ledId) && validate.isColor(color)) {
+                                state.setLedById(ledId, color);
+                            }
+                        }
                     } catch (error) {
                         console.error(error);
                     }
@@ -58,7 +65,12 @@ var start = () => {
                 case setTopic:
                     try {
                         var payload = JSON.parse(packet.payload);
-                        state.setAll(payload.color);
+                        if (payload.color) {
+                            var color = payload.color;
+                            if (validate.isColor(color)) {
+                                state.setAll(color);
+                            }
+                        }
                     } catch (error) {
                         console.error(error);
                     }
