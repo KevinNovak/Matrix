@@ -3,7 +3,7 @@ const hbs = require('hbs');
 const path = require('path');
 const mosca = require('./mosca.js');
 const state = require('./state.js');
-const colors = require('./colors');
+const colors = require('./colors.js');
 
 const httpPort = 3000;
 
