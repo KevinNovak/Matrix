@@ -1,9 +1,9 @@
 const express = require('express');
 const hbs = require('hbs');
 const path = require('path');
-const mosca = require('./mosca.js');
-const state = require('./state.js');
-const colors = require('./colors.js');
+const mosca = require('./mosca');
+const state = require('./state');
+const colors = require('./colors');
 
 const httpPort = 3000;
 
@@ -15,7 +15,7 @@ var app = express();
 
 // Handlebars
 app.set('view engine', 'hbs');
-app.set('views', path.join(__dirname + './views'));
+app.set('views', path.join(__dirname, './views'));
 
 // Static files
 app.use(express.static(path.join(__dirname, './public')));

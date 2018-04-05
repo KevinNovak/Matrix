@@ -1,5 +1,5 @@
-const leds = require('./leds.js');
-const colors = require('./colors.js');
+const leds = require('./leds');
+const colors = require('./colors');
 
 function isLed(led) {
     return leds.includes(led);
