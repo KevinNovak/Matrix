@@ -79,6 +79,11 @@ function start() {
         console.log(`Mosca server running with MQTT on port ${mqttPort} and WebSockets on port ${wsPort}.`);
     });
 
+    server.on('error', (error) => {
+        console.error('Error:', error.message);
+        process.exit();
+    });
+
     return server;
 };
 
