@@ -4,7 +4,7 @@ const state = require('./state');
 
 const mongoDbUrl = 'mongodb://localhost:27017/matrix';
 const mqttPort = 1883;
-const wsPort = 80;
+const wsPort = 81;
 
 const ledTopic = 'matrix/led';
 const clearTopic = 'matrix/clear';
