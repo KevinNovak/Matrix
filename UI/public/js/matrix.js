@@ -2,8 +2,8 @@
 const apiUrl = 'http://localhost:3000/api';
 const wsUrl = 'ws://localhost:81';
 // Network
-//const apiUrl = 'http://192.168.0.27:3000/api';
-//const wsUrl = 'ws://192.168.0.27:81';
+//const apiUrl = 'http://192.168.0.32:3000/api';
+//const wsUrl = 'ws://192.168.0.32:81';
 
 const ledTopic = 'matrix/led';
 const clearTopic = 'matrix/clear';
