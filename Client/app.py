@@ -1,3 +1,4 @@
+import json
 import paho.mqtt.client as mqtt
 
 TOPIC_LED = 'matrix/led'
@@ -30,7 +31,10 @@ def on_message(client, userdata, msg):
     print('  Payload: ' + str(payload))
 
     if topic == TOPIC_LED:
-        print('LED Topic')
+        try:
+            payload = json.loads(payload)
+        except Exception as error:
+            print(error)
     elif topic == TOPIC_CLEAR:
         print('Clear Topic')
     elif topic == TOPIC_SET:
