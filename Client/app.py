@@ -3,18 +3,24 @@ import paho.mqtt.client as mqtt
 
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata, flags, rc):
-    print('Connected with result code ' + str(rc))
+    print('Connected to MQTT Broker.')
+    subscribe()
 
-    # Subscribing in on_connect() means that if we lose the connection and
-    # reconnect then subscriptions will be renewed.
-    client.subscribe('matrix/led')
-    client.subscribe('matrix/clear')
-    client.subscribe('matrix/set')
+
+def on_disconnect(client, userdata, rc):
+    print('Disconnected from MQTT Broker.')
 
 
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):
-    print(msg.topic + ' ' + str(msg.payload))
+    print('  Topic: ' + msg.topic)
+    print('  Payload: ' + str(msg.payload))
+
+
+def subscribe():
+    client.subscribe('matrix/led')
+    client.subscribe('matrix/clear')
+    client.subscribe('matrix/set')
 
 
 client = mqtt.Client()
