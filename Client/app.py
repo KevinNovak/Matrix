@@ -19,23 +19,24 @@ def setAll(color):
 
 
 def start():
-    client.on_connect = on_connect
-    client.on_message = on_message
+    client.on_connect = onConnect
+    client.on_disconnect = onDisconnect
+    client.on_message = onMessage
 
     client.connect('kevinnovak.me', 1883, 60)
     client.loop_forever()
 
 
-def on_connect(client, userdata, flags, rc):
+def onConnect(client, userdata, flags, rc):
     print('Connected to MQTT Broker.')
     subscribe()
 
 
-def on_disconnect(client, userdata, rc):
+def onDisconnect(client, userdata, rc):
     print('Disconnected from MQTT Broker.')
 
 
-def on_message(client, userdata, msg):
+def onMessage(client, userdata, msg):
     topic = msg.topic
     payload = msg.payload.decode('utf-8')
 
