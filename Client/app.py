@@ -1,5 +1,9 @@
 import paho.mqtt.client as mqtt
 
+TOPIC_LED = 'matrix/led'
+TOPIC_CLEAR = 'matrix/clear'
+TOPIC_SET = 'matrix/set'
+
 
 def start():
     client.on_connect = on_connect
@@ -19,14 +23,24 @@ def on_disconnect(client, userdata, rc):
 
 
 def on_message(client, userdata, msg):
-    print('  Topic: ' + msg.topic)
-    print('  Payload: ' + str(msg.payload))
+    topic = msg.topic
+    payload = msg.payload
+
+    print('  Topic: ' + topic)
+    print('  Payload: ' + str(payload))
+
+    if topic == TOPIC_LED:
+        print('LED Topic')
+    elif topic == TOPIC_CLEAR:
+        print('Clear Topic')
+    elif topic == TOPIC_SET:
+        print('Set Topic')
 
 
 def subscribe():
-    client.subscribe('matrix/led')
-    client.subscribe('matrix/clear')
-    client.subscribe('matrix/set')
+    client.subscribe(TOPIC_LED)
+    client.subscribe(TOPIC_CLEAR)
+    client.subscribe(TOPIC_SET)
 
 
 client = mqtt.Client()
