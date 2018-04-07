@@ -1,5 +1,6 @@
 import json
 import paho.mqtt.client as mqtt
+from colors import colors
 
 TOPIC_LED = 'matrix/led'
 TOPIC_CLEAR = 'matrix/clear'
@@ -7,7 +8,7 @@ TOPIC_SET = 'matrix/set'
 
 
 def setLedById(ledId, color):
-    print('LED topic: ' + ledId + ' ' + color)
+    print('LED topic: ' + ledId + ' ')
 
 
 def clearAll():
