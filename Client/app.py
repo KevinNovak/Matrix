@@ -6,6 +6,18 @@ TOPIC_CLEAR = 'matrix/clear'
 TOPIC_SET = 'matrix/set'
 
 
+def setLedById(ledId, color):
+    print('LED topic: ' + ledId + ' ' + color)
+
+
+def clearAll():
+    print('Clear topic')
+
+
+def setAll(color):
+    print('Set topic ' + color)
+
+
 def start():
     client.on_connect = on_connect
     client.on_message = on_message
@@ -33,12 +45,17 @@ def on_message(client, userdata, msg):
     if topic == TOPIC_LED:
         try:
             payload = json.loads(payload)
+            setLedById(payload['ledId'], payload['color'])
         except Exception as error:
             print(error)
     elif topic == TOPIC_CLEAR:
-        print('Clear Topic')
+        clearAll()
     elif topic == TOPIC_SET:
-        print('Set Topic')
+        try:
+            payload = json.loads(payload)
+            setAll(payload['color'])
+        except Exception as error:
+            print(error)
 
 
 def subscribe():
