@@ -1,12 +1,14 @@
 // Local
 const apiUrl = 'http://localhost:3000/api';
-const wsUrl = 'ws://localhost:81';
-// Network
+const wsUrl = 'ws://localhost:82';
+
+// Local Network
 //const apiUrl = 'http://192.168.0.32:3000/api';
-//const wsUrl = 'ws://192.168.0.32:81';
+//const wsUrl = 'ws://192.168.0.32:82';
+
 // Public
 //const apiUrl = 'http://kevinnovak.me/matrix/api';
-//const wsUrl = 'ws://192.168.0.32:81';
+//const wsUrl = 'ws://kevinnovak.me/matrix/ws';
 
 const ledTopic = 'matrix/led';
 const clearTopic = 'matrix/clear';
