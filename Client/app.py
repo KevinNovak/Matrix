@@ -6,9 +6,13 @@ TOPIC_LED = 'matrix/led'
 TOPIC_CLEAR = 'matrix/clear'
 TOPIC_SET = 'matrix/set'
 
+PAYLOAD_ENCODING = 'UTF-8'
+PAYLOAD_LED_ID = 'ledId'
+PAYLOAD_COLOR = 'color'
+
 
 def setLedById(ledId, color):
-    print('LED topic: ' + ledId + ' ')
+    print('LED topic: ' + ledId + ' ' + color)
 
 
 def clearAll():
@@ -39,7 +43,7 @@ def onDisconnect(client, userdata, rc):
 
 def onMessage(client, userdata, msg):
     topic = msg.topic
-    payload = msg.payload.decode('utf-8')
+    payload = msg.payload.decode(PAYLOAD_ENCODING)
 
     print('  Topic: ' + topic)
     print('  Payload: ' + payload)
@@ -47,7 +51,7 @@ def onMessage(client, userdata, msg):
     if topic == TOPIC_LED:
         try:
             payload = json.loads(payload)
-            setLedById(payload['ledId'], payload['color'])
+            setLedById(payload[PAYLOAD_LED_ID], payload[PAYLOAD_COLOR])
         except Exception as error:
             print(error)
     elif topic == TOPIC_CLEAR:
@@ -55,7 +59,7 @@ def onMessage(client, userdata, msg):
     elif topic == TOPIC_SET:
         try:
             payload = json.loads(payload)
-            setAll(payload['color'])
+            setAll(payload[PAYLOAD_COLOR])
         except Exception as error:
             print(error)
 
