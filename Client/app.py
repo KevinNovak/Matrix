@@ -24,7 +24,7 @@ def on_disconnect(client, userdata, rc):
 
 def on_message(client, userdata, msg):
     topic = msg.topic
-    payload = msg.payload
+    payload = msg.payload.decode('utf-8')
 
     print('  Topic: ' + topic)
     print('  Payload: ' + str(payload))
