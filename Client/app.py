@@ -40,7 +40,7 @@ def on_message(client, userdata, msg):
     payload = msg.payload.decode('utf-8')
 
     print('  Topic: ' + topic)
-    print('  Payload: ' + str(payload))
+    print('  Payload: ' + payload)
 
     if topic == TOPIC_LED:
         try:
