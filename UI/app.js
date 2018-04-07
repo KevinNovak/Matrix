@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const hbs = require('hbs');
 const path = require('path');
 const mosca = require('./mosca');
@@ -19,6 +20,9 @@ app.set('views', path.join(__dirname, './views'));
 
 // Static files
 app.use(express.static(path.join(__dirname, './public')));
+
+// Setup cors
+app.use(cors());
 
 app.get('/', (request, response) => {
     response.render('index.hbs', {
