@@ -28,8 +28,7 @@ app.use(cors());
 app.get('/', (request, response) => {
     response.render('index.hbs', {
         leds: state.leds,
-        colors: colors,
-        online: 3
+        colors: colors
     });
 });
 
