@@ -17,7 +17,7 @@ var app = express();
 // Handlebars
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, './views'));
-hbs.registerPartials('./views/partials');
+hbs.registerPartials(path.join(__dirname, './views/partials'));
 
 // Static files
 app.use(express.static(path.join(__dirname, './public')));
