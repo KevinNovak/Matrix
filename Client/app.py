@@ -2,6 +2,9 @@ import json
 import paho.mqtt.client as mqtt
 from colors import colors
 
+MQTT_URL = 'kevinnovak.me'
+MQTT_PORT = 1883
+
 TOPIC_LED = 'matrix/led'
 TOPIC_CLEAR = 'matrix/clear'
 TOPIC_SET = 'matrix/set'
@@ -28,7 +31,7 @@ def start():
     client.on_disconnect = onDisconnect
     client.on_message = onMessage
 
-    client.connect('kevinnovak.me', 1883, 60)
+    client.connect(MQTT_URL, MQTT_PORT, 60)
     client.loop_forever()
 
 
