@@ -13,6 +13,8 @@
 #led-grid-border {
     /* 1:1 Apsect Ratio */
     padding-bottom: 100%;
+    border-radius: 5%;
+    border: 3px solid black;
 }
 
 #live-stream-border {
