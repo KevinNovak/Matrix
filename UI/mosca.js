@@ -1,16 +1,11 @@
 const mosca = require('mosca');
 const validate = require('./validate');
+const topics = require('./topics');
 const state = require('./state');
 
 const mongoDbUrl = 'mongodb://localhost:27017/matrix';
 const mqttPort = 1883;
 const wsPort = 82;
-
-const topics = {
-    LED: 'matrix/led',
-    CLEAR: 'matrix/clear',
-    SET: 'matrix/set'
-};
 
 var moscaSettings = {
     port: mqttPort,
