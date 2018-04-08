@@ -38,7 +38,9 @@ def setAll(color):
 
 def setState():
     request = requests.get(API_URL + '/state')
-    print(request.json())
+    leds = request.json()
+    for led in leds:
+        setLedById(led[PAYLOAD_LED_ID], led[PAYLOAD_COLOR])
 
 
 def start():
