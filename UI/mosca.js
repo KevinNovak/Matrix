@@ -6,9 +6,11 @@ const mongoDbUrl = 'mongodb://localhost:27017/matrix';
 const mqttPort = 1883;
 const wsPort = 82;
 
-const ledTopic = 'matrix/led';
-const clearTopic = 'matrix/clear';
-const setTopic = 'matrix/set';
+const topics = {
+    LED: 'matrix/led',
+    CLEAR: 'matrix/clear',
+    SET: 'matrix/set'
+};
 
 var moscaSettings = {
     port: mqttPort,
@@ -45,7 +47,7 @@ function start() {
             console.log(`  Topic: ${packet.topic}`);
             console.log(`  Payload: ${packet.payload}`);
             switch (topic) {
-                case ledTopic:
+                case topics.LED:
                     try {
                         var payload = JSON.parse(packet.payload);
                         if (validate.isLedTopic(payload)) {
@@ -55,10 +57,10 @@ function start() {
                         console.error(error);
                     }
                     break;
-                case clearTopic:
+                case topics.CLEAR:
                     state.clearAll();
                     break;
-                case setTopic:
+                case topics.SET:
                     try {
                         var payload = JSON.parse(packet.payload);
                         if (validate.isSetTopic(payload)) {
