@@ -1,5 +1,9 @@
+# Standard
 import json
+# Third party
+import requests
 import paho.mqtt.client as mqtt
+# Local
 from topics import Topic
 from colors import colors
 
