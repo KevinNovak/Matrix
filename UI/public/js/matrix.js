@@ -10,9 +10,11 @@ const wsUrl = 'ws://localhost:82';
 //const apiUrl = 'http://kevinnovak.me/matrix/api';
 //const wsUrl = 'ws://kevinnovak.me/matrix/ws';
 
-const ledTopic = 'matrix/led';
-const clearTopic = 'matrix/clear';
-const setTopic = 'matrix/set';
+const topics = {
+    LED: 'matrix/led',
+    CLEAR: 'matrix/clear',
+    SET: 'matrix/set'
+};
 
 const clearColor = 'color-18';
 
@@ -87,7 +89,7 @@ function publishLed(ledId, color) {
         color
     });
 
-    client.publish(ledTopic, payload);
+    client.publish(topics.LED, payload);
 }
 
 // ==============================================
@@ -112,7 +114,7 @@ function publishSet(color) {
         color
     });
 
-    client.publish(setTopic, payload);
+    client.publish(topics.SET, payload);
 }
 
 // ==============================================
@@ -132,7 +134,7 @@ function clearAll() {
 }
 
 function publishClear() {
-    client.publish(clearTopic);
+    client.publish(topics.CLEAR);
 }
 
 // ==============================================
@@ -191,7 +193,7 @@ function setup() {
         console.log(`  Payload: ${payload}`);
 
         switch (topic) {
-            case ledTopic:
+            case topics.LED:
                 try {
                     payload = JSON.parse(payload);
                     setLedById(payload.ledId, payload.color);
@@ -199,10 +201,10 @@ function setup() {
                     console.error(error);
                 }
                 break;
-            case clearTopic:
+            case topics.CLEAR:
                 clearAll();
                 break;
-            case setTopic:
+            case topics.SET:
                 try {
                     payload = JSON.parse(payload);
                     setAll(payload.color);
@@ -217,7 +219,7 @@ function setup() {
 }
 
 function subscribe() {
-    client.subscribe(ledTopic);
-    client.subscribe(clearTopic);
-    client.subscribe(setTopic);
+    for (var topic in topics) {
+        client.subscribe(topics[topic]);
+    }
 }
