@@ -28,73 +28,62 @@
         </div>
         <div class="row">
             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 offset-xl-2 no-padding">
-                {{!--
-                <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 offset-xl-2 no-padding outline dashed" style="outline-color: red;">
-                    --}}
-                    <!-- <div id="led-grid-container"> -->
-                    <div id="led-grid-container">
-                        {{!--
-                        <div id="led-grid-container" class="outline dashed" style="outline-color: darkblue;"> --}}
-                            <div id="led-grid-border" class="stretchy-wrapper center outline solid" style="outline-color: black;">
-                                <div id="led-grid">
-                                    {{#each leds}}
-                                    <div class="cell led">
-                                        <button id="{{this.ledId}}" class="btn led {{this.color}}"></button>
-                                    </div>
-                                    {{/each}}
-                                </div>
+                <!-- <div id="led-grid-container"> -->
+                <div id="led-grid-container">
+                    <div id="led-grid-border" class="stretchy-wrapper center outline solid" style="outline-color: black;">
+                        <div id="led-grid">
+                            {{#each leds}}
+                            <div class="cell led">
+                                <button id="{{this.ledId}}" class="btn led {{this.color}}"></button>
                             </div>
-                        </div>
-                        <!-- <div id="led-grid-controller"> -->
-                        <div id="led-grid-controller">
-                            {{!--
-                            <div id="led-grid-controller" class="outline dashed" style="outline-color: darkmagenta;">
-                                --}}
-                                <div id="color-grid">
-                                    {{#each colors}}
-                                    <div class="cell color">
-                                        {{#if @first}}
-                                        <button id="{{this}}" class="btn color {{this}} active"></button>
-                                        {{else}}
-                                        <button id="{{this}}" class="btn color {{this}}"></button>
-                                        {{/if}}
-                                    </div>
-                                    {{/each}}
-                                </div>
-                                <div id="control-grid">
-                                    <div class="cell control">
-                                        <button id="control-set" class="btn control no-padding">Set all
-                                            <i class="fas fa-paint-brush"></i>
-                                        </button>
-                                    </div>
-                                    <div class="cell control">
-                                        <button id="control-clear" class="btn control no-padding">Clear all
-                                            <i class="fas fa-times"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 no-padding">
-                            {{!--
-                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 no-padding outline dashed" style="outline-color: purple;">
-                                --}}
-                                <!-- <div id="live-stream-container"> -->
-                                <div id="live-stream-container">
-                                    <div id="live-stream-border" class="stretchy-wrapper center outline solid" style="outline-color: black;">
-                                        <iframe id="live-stream" src="https://www.youtube.com/embed/live_stream?channel=UCeLYdfdOvP-lMv-9MzZpfag&autoplay=1" frameborder="0"></iframe>
-                                    </div>
-                                </div>
-                                <div id="description-container">
-                                    <div id="description-border" class="outline solid" style="outline-color: black">
-                                        <a href="https://github.com/KevinNovak/Matrix" target="_blank">
-                                            <img id="github-logo" src="./img/github-logo.png">
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
+                            {{/each}}
                         </div>
                     </div>
+                </div>
+                <!-- <div id="led-grid-controller"> -->
+                <div id="led-grid-controller">
+                    <div id="color-grid">
+                        {{#each colors}}
+                        <div class="cell color">
+                            {{#if @first}}
+                            <button id="{{this}}" class="btn color {{this}} active"></button>
+                            {{else}}
+                            <button id="{{this}}" class="btn color {{this}}"></button>
+                            {{/if}}
+                        </div>
+                        {{/each}}
+                    </div>
+                    <div id="control-grid">
+                        <div class="cell control">
+                            <button id="control-set" class="btn control no-padding">Set all
+                                <i class="fas fa-paint-brush"></i>
+                            </button>
+                        </div>
+                        <div class="cell control">
+                            <button id="control-clear" class="btn control no-padding">Clear all
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 no-padding">
+                <!-- <div id="live-stream-container"> -->
+                <div id="live-stream-container">
+                    <div id="live-stream-border" class="stretchy-wrapper center outline solid" style="outline-color: black;">
+                        <iframe id="live-stream" src="https://www.youtube.com/embed/live_stream?channel=UCeLYdfdOvP-lMv-9MzZpfag&autoplay=1" frameborder="0"></iframe>
+                    </div>
+                </div>
+                <div id="description-container">
+                    <div id="description-border" class="outline solid" style="outline-color: black">
+                        <a href="https://github.com/KevinNovak/Matrix" target="_blank">
+                            <img id="github-logo" src="./img/github-logo.png">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
