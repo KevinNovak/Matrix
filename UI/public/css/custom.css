@@ -109,6 +109,8 @@
 .btn.color.active {
     border: 5 px solid black;
     opacity: 1;
+    /* Keep Bootstrap box shadow */
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, .25);
 }
 
 .btn.control {
