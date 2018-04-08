@@ -12,8 +12,12 @@ PAYLOAD_COLOR = 'color'
 
 
 def setLedById(ledId, color):
-    print('LED topic: ' + ledId + ' ' + color)
+    rgb = colorToRGB(color)
+    print('LED: ' + ledId)
+    print('R: ' + str(rgb[0]) + '\tG: ' + str(rgb[1]) + '\tB: ' + str(rgb[2]))
 
+def colorToRGB(color):
+    return colors[color]
 
 def clearAll():
     print('Clear topic')
@@ -48,15 +52,15 @@ def onMessage(client, userdata, msg):
     print('  Topic: ' + topic)
     print('  Payload: ' + payload)
 
-    if topic == Topic.LED:
+    if topic == Topic.LED.value:
         try:
             payload = json.loads(payload)
             setLedById(payload[PAYLOAD_LED_ID], payload[PAYLOAD_COLOR])
         except Exception as error:
             print(error)
-    elif topic == Topic.CLEAR:
+    elif topic == Topic.CLEAR.value:
         clearAll()
-    elif topic == Topic.SET:
+    elif topic == Topic.SET.value:
         try:
             payload = json.loads(payload)
             setAll(payload[PAYLOAD_COLOR])
