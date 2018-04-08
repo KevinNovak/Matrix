@@ -1,13 +1,10 @@
 import json
 import paho.mqtt.client as mqtt
+from topics import Topic
 from colors import colors
 
 MQTT_URL = 'kevinnovak.me'
 MQTT_PORT = 1883
-
-TOPIC_LED = 'matrix/led'
-TOPIC_CLEAR = 'matrix/clear'
-TOPIC_SET = 'matrix/set'
 
 PAYLOAD_ENCODING = 'UTF-8'
 PAYLOAD_LED_ID = 'ledId'
@@ -51,15 +48,15 @@ def onMessage(client, userdata, msg):
     print('  Topic: ' + topic)
     print('  Payload: ' + payload)
 
-    if topic == TOPIC_LED:
+    if topic == Topic.LED:
         try:
             payload = json.loads(payload)
             setLedById(payload[PAYLOAD_LED_ID], payload[PAYLOAD_COLOR])
         except Exception as error:
             print(error)
-    elif topic == TOPIC_CLEAR:
+    elif topic == Topic.CLEAR:
         clearAll()
-    elif topic == TOPIC_SET:
+    elif topic == Topic.SET:
         try:
             payload = json.loads(payload)
             setAll(payload[PAYLOAD_COLOR])
@@ -68,9 +65,8 @@ def onMessage(client, userdata, msg):
 
 
 def subscribe():
-    client.subscribe(TOPIC_LED)
-    client.subscribe(TOPIC_CLEAR)
-    client.subscribe(TOPIC_SET)
+    for topic in Topic:
+        client.subscribe(topic.value)
 
 
 client = mqtt.Client()
