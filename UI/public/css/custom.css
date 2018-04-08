@@ -31,6 +31,12 @@
     padding: 15px 15px 0px 15px;
 }
 
+/* Footer */
+
+#footer {
+    background-color: whitesmoke;
+}
+
 /* Content */
 
 #led-grid {
