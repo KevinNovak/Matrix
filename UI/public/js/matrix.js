@@ -18,6 +18,8 @@ const topics = {
 
 const clearColor = 'color-18';
 
+var editingEnabled = false;
+
 var client;
 var ledButtons, colorButtons, clearButton, setButton;
 var activeColorButton;
@@ -64,10 +66,12 @@ function setActive(colorButton) {
 // LEDs
 // ==============================================
 function ledClicked() {
-    var color = activeColorButton.id;
-    if (!ledContainsColor(this, color)) {
-        setLed(this, color);
-        publishLed(this.id, color);
+    if (editingEnabled) {
+        var color = activeColorButton.id;
+        if (!ledContainsColor(this, color)) {
+            setLed(this, color);
+            publishLed(this.id, color);
+        }
     }
 }
 
@@ -96,9 +100,11 @@ function publishLed(ledId, color) {
 // Set all
 // ==============================================
 function setAllClicked() {
-    var color = activeColorButton.id;
-    setAll(color);
-    publishSet(color);
+    if (editingEnabled) {
+        var color = activeColorButton.id;
+        setAll(color);
+        publishSet(color);
+    }
 }
 
 function setAll(color) {
@@ -121,8 +127,10 @@ function publishSet(color) {
 // Clear all
 // ==============================================
 function clearAllClicked() {
-    clearAll();
-    publishClear();
+    if (editingEnabled) {
+        clearAll();
+        publishClear();
+    }
 }
 
 function clearAll() {
@@ -162,6 +170,7 @@ function setState() {
             for (led of leds) {
                 setLedById(led.ledId, led.color);
             }
+            editingEnabled = true;
         })
         .catch((error) => {
             console.error('Error:', error);
@@ -183,6 +192,7 @@ function setup() {
     });
 
     client.on('close', () => {
+        editingEnabled = false;
         console.log('Disconnected from MQTT Broker.');
     });
 
