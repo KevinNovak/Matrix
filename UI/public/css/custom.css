@@ -155,6 +155,12 @@
     width: auto
 }
 
+/* Links */
+
+a.no-underline {
+    text-decoration: none;
+}
+
 /* Helpful */
 
 .center {
