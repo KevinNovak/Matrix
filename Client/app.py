@@ -7,6 +7,8 @@ import paho.mqtt.client as mqtt
 from topics import Topic
 from colors import colors
 
+API_URL = 'http://kevinnovak.me/matrix/api'
+
 MQTT_URL = 'kevinnovak.me'
 MQTT_PORT = 1883
 
@@ -34,6 +36,11 @@ def setAll(color):
     print('R: ' + str(rgb[0]) + '\tG: ' + str(rgb[1]) + '\tB: ' + str(rgb[2]))
 
 
+def setState():
+    request = requests.get(API_URL + '/state')
+    print(request.json())
+
+
 def start():
     client.on_connect = onConnect
     client.on_disconnect = onDisconnect
@@ -46,6 +53,7 @@ def start():
 def onConnect(client, userdata, flags, rc):
     print('Connected to MQTT Broker.')
     subscribe()
+    setState()
 
 
 def onDisconnect(client, userdata, rc):
