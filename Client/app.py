@@ -16,15 +16,18 @@ def setLedById(ledId, color):
     print('LED: ' + ledId)
     print('R: ' + str(rgb[0]) + '\tG: ' + str(rgb[1]) + '\tB: ' + str(rgb[2]))
 
+
 def colorToRGB(color):
     return colors[color]
+
 
 def clearAll():
     print('Clear topic')
 
 
 def setAll(color):
-    print('Set topic ' + color)
+    rgb = colorToRGB(color)
+    print('R: ' + str(rgb[0]) + '\tG: ' + str(rgb[1]) + '\tB: ' + str(rgb[2]))
 
 
 def start():
