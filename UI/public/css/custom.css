@@ -151,6 +151,12 @@
     font-family: 'Press Start 2P';
 }
 
+/* Bullets */
+
+#instructions {
+    padding-left: 30px;
+}
+
 /* Images */
 
 #github-logo {
