@@ -29,7 +29,7 @@ app.get('/', (request, response) => {
     response.render('index.hbs', {
         leds: state.leds,
         colors: colors,
-        online: state.online + 1
+        online: state.online
     });
 });
 
