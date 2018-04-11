@@ -1,5 +1,6 @@
 # Standard
 import json
+import re
 # Third party
 import requests
 import paho.mqtt.client as mqtt
@@ -20,7 +21,10 @@ PAYLOAD_COLOR = 'color'
 def setLedById(ledId, color):
     rgb = colorToRGB(color)
     print('LED: ' + ledId)
-    print('R: ' + str(rgb[0]) + '\tG: ' + str(rgb[1]) + '\tB: ' + str(rgb[2]))
+    r = str(rgb[0])
+    g = str(rgb[1])
+    b = str(rgb[2])
+    print(f'R: {r}\tG: {g}\t B: {b}')
 
 
 def colorToRGB(color):
@@ -33,12 +37,15 @@ def clearAll():
 
 def setAll(color):
     rgb = colorToRGB(color)
-    print('R: ' + str(rgb[0]) + '\tG: ' + str(rgb[1]) + '\tB: ' + str(rgb[2]))
+    r = str(rgb[0])
+    g = str(rgb[1])
+    b = str(rgb[2])
+    print(f'R: {r}\tG: {g}\t B: {b}')
 
 
 def setState():
     try:
-        request = requests.get(API_URL + '/state')
+        request = requests.get(f'{API_URL}/state')
         leds = request.json()
         for led in leds:
             setLedById(led[PAYLOAD_LED_ID], led[PAYLOAD_COLOR])
@@ -69,8 +76,8 @@ def onMessage(client, userdata, msg):
     topic = msg.topic
     payload = msg.payload.decode(PAYLOAD_ENCODING)
 
-    print('  Topic: ' + topic)
-    print('  Payload: ' + payload)
+    print(f'  Topic: {topic}')
+    print(f'  Payload: {payload}')
 
     if topic == Topic.LED.value:
         try:
@@ -95,3 +102,13 @@ def subscribe():
 
 client = mqtt.Client()
 start()
+
+
+def parseLedId(ledId):
+    match = re.match(r'^led-([0-7])-([0-7])$', ledId, flags=0)
+    if match:
+        x = match.groups(1)
+        y = match.groups(2)
+        print(f'Found {x} and {y}')
+    else:
+        print('No match found')
