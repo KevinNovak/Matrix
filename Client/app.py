@@ -14,6 +14,7 @@ MQTT_URL = 'kevinnovak.me'
 MQTT_PORT = 1883
 
 PAYLOAD_ENCODING = 'UTF-8'
+PAYLOAD_LEDS = 'leds'
 PAYLOAD_LED_ID = 'ledId'
 PAYLOAD_COLOR = 'color'
 
@@ -59,8 +60,8 @@ def setAll(color):
 def setState():
     try:
         request = requests.get(f'{API_URL}/state')
-        leds = request.json()
-        for led in leds:
+        state = request.json()
+        for led in state[PAYLOAD_LEDS]:
             setLedById(led[PAYLOAD_LED_ID], led[PAYLOAD_COLOR])
     except Exception as error:
         print(error)
