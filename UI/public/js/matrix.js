@@ -13,7 +13,8 @@ const wsUrl = 'ws://localhost:82';
 const topics = {
     LED: 'matrix/led',
     CLEAR: 'matrix/clear',
-    SET: 'matrix/set'
+    SET: 'matrix/set',
+    ONLINE: 'matrix/online'
 };
 
 const clearColor = 'color-18';
@@ -232,6 +233,13 @@ function setup() {
                     console.error(error);
                 }
                 break;
+            case topics.ONLINE:
+                try {
+                    payload = JSON.parse(payload);
+                    setOnline(payload.online);
+                } catch (error) {
+                    console.error(error);
+                }
             default:
                 break;
         }
