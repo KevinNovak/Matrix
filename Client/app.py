@@ -21,12 +21,11 @@ PAYLOAD_COLOR = 'color'
 def setLedById(ledId, color):
     try:
         led = parseLedId(ledId)
-        print(f'LED {led[0]} {led[1]}')
         rgb = colorToRGB(color)
         r = str(rgb[0])
         g = str(rgb[1])
         b = str(rgb[2])
-        print(f'R: {r}\tG: {g}\t B: {b}')
+        print(f'LED {led[0]} {led[1]} is R: {r}, G: {g}, B: {b}')
     except Exception as error:
         print(error)
 
