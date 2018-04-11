@@ -25,7 +25,8 @@ var moscaSettings = {
 };
 
 function usersChanged() {
-    var online = Object.keys(server.clients).length;
+    var online = Object.keys(server.clients)
+        .filter(c => c.startsWith('mqttjs')).length;
     state.online = online;
     var message = {
         topic: topics.ONLINE,
@@ -34,7 +35,7 @@ function usersChanged() {
         }),
         qos: 0,
         retain: false
-      };
+    };
     server.publish(message);
 }
 
