@@ -19,12 +19,26 @@ PAYLOAD_COLOR = 'color'
 
 
 def setLedById(ledId, color):
-    rgb = colorToRGB(color)
-    print('LED: ' + ledId)
-    r = str(rgb[0])
-    g = str(rgb[1])
-    b = str(rgb[2])
-    print(f'R: {r}\tG: {g}\t B: {b}')
+    try:
+        led = parseLedId(ledId)
+        print(f'LED {led[0]} {led[1]}')
+        rgb = colorToRGB(color)
+        r = str(rgb[0])
+        g = str(rgb[1])
+        b = str(rgb[2])
+        print(f'R: {r}\tG: {g}\t B: {b}')
+    except Exception as error:
+        print(error)
+
+
+def parseLedId(ledId):
+    match = re.match(r'^led-([0-7])-([0-7])$', ledId, flags=0)
+    if match:
+        x = match.group(1)
+        y = match.group(2)
+        return (x, y)
+    else:
+        raise Exception('Could not find a match.')
 
 
 def colorToRGB(color):
@@ -102,13 +116,3 @@ def subscribe():
 
 client = mqtt.Client()
 start()
-
-
-def parseLedId(ledId):
-    match = re.match(r'^led-([0-7])-([0-7])$', ledId, flags=0)
-    if match:
-        x = match.groups(1)
-        y = match.groups(2)
-        print(f'Found {x} and {y}')
-    else:
-        print('No match found')
