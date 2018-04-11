@@ -26,6 +26,8 @@ function setAll(color) {
     }
 }
 
+var online = 1;
+
 var leds = [{
         ledId: "led-0-0",
         color: clearColor

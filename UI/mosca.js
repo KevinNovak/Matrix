@@ -7,6 +7,8 @@ const mongoDbUrl = 'mongodb://localhost:27017/matrix';
 const mqttPort = 1883;
 const wsPort = 82;
 
+var server;
+
 var moscaSettings = {
     port: mqttPort,
     backend: {
@@ -22,16 +24,32 @@ var moscaSettings = {
     }
 };
 
+function usersChanged() {
+    var online = Object.keys(server.clients).length;
+    state.online = online;
+    var message = {
+        topic: topics.ONLINE,
+        payload: JSON.stringify({
+            online
+        }),
+        qos: 0,
+        retain: false
+      };
+    server.publish(message);
+}
+
 function start() {
-    var server = new mosca.Server(moscaSettings);
+    server = new mosca.Server(moscaSettings);
 
     // Client connects
     server.on('clientConnected', (client) => {
+        usersChanged();
         console.log(`Client "${client.id}" connected.`);
     });
 
     // Client disconnects
     server.on('clientDisconnected', (client) => {
+        usersChanged();
         console.log(`Client "${client.id}" disconnected.`);
     });
 

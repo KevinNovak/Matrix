@@ -23,6 +23,7 @@ var editingEnabled = false;
 var client;
 var ledButtons, colorButtons, clearButton, setButton;
 var activeColorButton;
+var onlineSpan;
 
 document.onreadystatechange = () => {
     if (document.readyState === 'complete') {
@@ -32,6 +33,7 @@ document.onreadystatechange = () => {
         colorButtons = document.getElementsByClassName('btn color');
         setButton = document.getElementById('control-set');
         clearButton = document.getElementById('control-clear');
+        onlineSpan = document.getElementById('online');
 
         // Register events
         for (ledButton of ledButtons) {
@@ -146,6 +148,13 @@ function publishClear() {
 }
 
 // ==============================================
+// Online
+// ==============================================
+function setOnline(online) {
+    onlineSpan.innerHTML = online;
+}
+
+// ==============================================
 // Helpers
 // ==============================================
 function ledContainsColor(ledButton, color) {
@@ -165,9 +174,10 @@ function setState() {
         .then((response) => {
             return response.json();
         })
-        .then((leds) => {
-            console.log(leds);
-            for (led of leds) {
+        .then((state) => {
+            console.log(state);
+            setOnline(state.online);
+            for (led of state.leds) {
                 setLedById(led.ledId, led.color);
             }
             editingEnabled = true;

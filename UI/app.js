@@ -28,12 +28,16 @@ app.use(cors());
 app.get('/', (request, response) => {
     response.render('index.hbs', {
         leds: state.leds,
-        colors: colors
+        colors: colors,
+        online: state.online
     });
 });
 
 app.get('/api/state', (request, response) => {
-    var body = state.leds;
+    var body = {
+        leds: state.leds,
+        online: state.online
+    };
     response.status(200);
     response.json(body);
 });
