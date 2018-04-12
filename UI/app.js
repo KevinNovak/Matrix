@@ -26,11 +26,9 @@ app.use(express.static(path.join(__dirname, './public')));
 app.use(cors());
 
 app.get('/', (request, response) => {
-    var online = state.online < 1 ? 1 : state.online;
     response.render('index.hbs', {
         leds: state.leds,
-        colors,
-        online
+        colors
     });
 });
 
