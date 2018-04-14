@@ -9,9 +9,8 @@
     "express-ws": "3.0.0",
     "raspivid-stream": "0.2.1"
   },
-  "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js"
   },
   "author": "Kevin Novak",
   "license": "MIT"
