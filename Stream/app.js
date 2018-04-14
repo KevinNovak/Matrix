@@ -4,8 +4,8 @@ const cors = require('cors');
 
 const wsPort = 8082;
 
-const videoWidth = 640;
-const videoHeight = 480;
+const videoWidth = 960;
+const videoHeight = 540;
 const videoRotation = 180;
 
 // App setup
