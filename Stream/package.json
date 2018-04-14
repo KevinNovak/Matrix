@@ -1,0 +1,17 @@
+{
+  "name": "matrix-stream",
+  "version": "1.0.0",
+  "description": "Stream live video of an LED matrix.",
+  "main": "app.js",
+  "dependencies": {
+    "cors": "2.8.4",
+    "express": "4.16.3",
+    "raspivid-stream": "0.2.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kevin Novak",
+  "license": "MIT"
+}
