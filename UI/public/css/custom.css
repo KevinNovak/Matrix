@@ -17,8 +17,8 @@
 }
 
 #live-stream-border {
-    /* 4:3 Apsect Ratio */
-    padding-bottom: 75%;
+    /* 16:9 Apsect Ratio */
+    padding-bottom: 56.25%;
 }
 
 #description-border {
