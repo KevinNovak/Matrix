@@ -39,6 +39,6 @@ app.ws('/matrix/stream', (ws, request) => {
 });
 
 // Start server
-var server = app.listen(httpPort, () => {
+var server = app.listen(wsPort, () => {
     console.log(`Server started on port ${wsPort}`);
 });
