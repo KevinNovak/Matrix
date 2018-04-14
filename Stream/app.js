@@ -1,22 +1,18 @@
-process.on('uncaughtException', function (err) {
-    console.log('Caught exception: ' + err);
-    console.log(err.stack);
-});
-
 const express = require('express');
 const raspividStream = require('raspivid-stream');
 const cors = require('cors');
 
+const wsPort = 8082;
+
+// App setup
 const app = express();
 const wss = require('express-ws')(app);
 
 // Setup cors
 app.use(cors());
 
-app.get('/', (req, res) => res.sendFile(__dirname + '/index.html'));
-
-app.ws('/matrix/stream', (ws, req) => {
-    console.log('Client connected');
+app.ws('/matrix/stream', (ws, request) => {
+    console.log('Client connected.');
 
     ws.send(JSON.stringify({
         action: 'init',
@@ -37,14 +33,12 @@ app.ws('/matrix/stream', (ws, req) => {
     });
 
     ws.on('close', () => {
-        console.log('Client left');
+        console.log('Client disconnected.');
         videoStream.removeAllListeners('data');
     });
 });
 
-app.use(function (err, req, res, next) {
-    console.error(err);
-    next(err);
-})
-
-app.listen(8082, () => console.log('Server started on 8082'));
+// Start server
+var server = app.listen(httpPort, () => {
+    console.log(`Server started on port ${wsPort}`);
+});
