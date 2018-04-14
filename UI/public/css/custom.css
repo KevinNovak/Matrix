@@ -157,6 +157,13 @@
     font-family: 'Press Start 2P';
 }
 
+#live-stream-text {
+    position: absolute;
+    top: 8px;
+    left: 16px;
+    color: white;
+}
+
 /* Bullets */
 
 #instructions {
