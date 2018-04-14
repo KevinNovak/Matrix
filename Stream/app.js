@@ -4,9 +4,13 @@ const cors = require('cors');
 
 const wsPort = 8082;
 
+const videoWidth = 960;
+const videoHeight = 540;
+const videoRotation = 180;
+
 // App setup
-const app = express();
-const wss = require('express-ws')(app);
+var app = express();
+var wss = require('express-ws')(app);
 
 // Setup cors
 app.use(cors());
@@ -16,25 +20,27 @@ app.ws('/matrix/stream', (ws, request) => {
 
     ws.send(JSON.stringify({
         action: 'init',
-        width: '960',
-        height: '540'
+        width: videoWidth,
+        height: videoHeight
     }));
 
-    var videoStream = raspividStream({
-        rotation: 180
+    var stream = raspividStream({
+        rotation: videoRotation
     });
 
-    videoStream.on('data', (data) => {
+    stream.on('data', (data) => {
         ws.send(data, {
             binary: true
         }, (error) => {
-            if (error) console.error(error);
+            if (error) {
+                console.error(error);
+            };
         });
     });
 
     ws.on('close', () => {
         console.log('Client disconnected.');
-        videoStream.removeAllListeners('data');
+        stream.removeAllListeners('data');
     });
 });
 
