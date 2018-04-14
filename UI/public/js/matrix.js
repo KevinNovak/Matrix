@@ -9,6 +9,7 @@ const wsUrl = 'ws://localhost:82';
 // Public
 //const apiUrl = 'http://kevinnovak.me/matrix/api';
 //const wsUrl = 'ws://kevinnovak.me/matrix/ws';
+const streamUrl = 'ws://pi.kevinnovak.me:8082/matrix/stream';
 
 const topics = {
     LED: 'matrix/led',
@@ -25,6 +26,7 @@ var client;
 var ledButtons, colorButtons, clearButton, setButton;
 var activeColorButton;
 var onlineSpan;
+var liveStreamCanvas;
 
 document.onreadystatechange = () => {
     if (document.readyState === 'complete') {
@@ -35,6 +37,7 @@ document.onreadystatechange = () => {
         setButton = document.getElementById('control-set');
         clearButton = document.getElementById('control-clear');
         onlineSpan = document.getElementById('online');
+        liveStreamCanvas = document.getElementById('live-stream');
 
         // Register events
         for (ledButton of ledButtons) {
@@ -47,6 +50,10 @@ document.onreadystatechange = () => {
         clearButton.addEventListener('click', clearAllClicked);
 
         activeColorButton = colorButtons[0];
+
+        // Start stream
+        var player = new WSAvcPlayer(liveStreamCanvas, 'webgl');
+        player.connect(streamUrl);
     }
 };
 
