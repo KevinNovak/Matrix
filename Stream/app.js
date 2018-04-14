@@ -48,3 +48,7 @@ app.ws('/matrix/stream', (ws, request) => {
 var server = app.listen(wsPort, () => {
     console.log(`Server started on port ${wsPort}`);
 });
+
+process.on('uncaughtException', (error) => {
+    console.error('Error:', error.message);
+});
