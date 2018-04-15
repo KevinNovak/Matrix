@@ -1,6 +1,5 @@
 const express = require('express');
 const raspividStream = require('raspivid-stream');
-const cors = require('cors');
 
 const wsPort = 8082;
 
@@ -11,9 +10,6 @@ const videoRotation = 180;
 // App setup
 var app = express();
 var wss = require('express-ws')(app);
-
-// Setup cors
-app.use(cors());
 
 app.ws('/matrix/stream', (ws, request) => {
     console.log('Client connected.');
