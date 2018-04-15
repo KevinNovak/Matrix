@@ -1,5 +1,6 @@
 # Custom directories
 .vscode/
+dist/
 
 # Custom files
 TODO.txt

@@ -4,7 +4,9 @@
   "description": "Web application for controlling an LED matrix.",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "webpack -p && node app.js",
+    "build": "webpack -p",
+    "watch": "webpack --watch"
   },
   "keywords": [
     "led",
@@ -18,5 +20,9 @@
     "express": "4.16.3",
     "hbs": "4.0.1",
     "mosca": "2.8.0"
+  },
+  "devDependencies": {
+    "webpack": "4.5.0",
+    "webpack-cli": "2.0.14"
   }
 }

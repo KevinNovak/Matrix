@@ -1,3 +1,5 @@
+const topics = require('./topics');
+
 // Local
 const apiUrl = 'http://localhost:3000/api';
 const wsUrl = 'ws://localhost:82';
@@ -10,13 +12,6 @@ const wsUrl = 'ws://localhost:82';
 //const apiUrl = 'http://kevinnovak.me/matrix/api';
 //const wsUrl = 'ws://kevinnovak.me/matrix/ws';
 const streamUrl = 'ws://pi.kevinnovak.me:8082/matrix/stream';
-
-const topics = {
-    LED: 'matrix/led',
-    CLEAR: 'matrix/clear',
-    SET: 'matrix/set',
-    ONLINE: 'matrix/online'
-};
 
 const clearColor = 'color-18';
 
