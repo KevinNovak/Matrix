@@ -9,7 +9,7 @@ Broken into 3 main applications:
     * Single Node.js application with two main functions:
         1. Run a Mosca MQTT broker.
         2. Serve web pages using Express.
-            * Each UI client subscribes the the Mosca broker.
+            * Each UI client subscribes to the Mosca broker.
     * Start with ```npm start```.
         * Remember to ```npm install```.
         * Requires a local instance of MongoDB
