@@ -16,11 +16,11 @@ var app = express();
 
 // Handlebars
 app.set('view engine', 'hbs');
-app.set('views', path.join(__dirname, './views'));
-hbs.registerPartials(path.join(__dirname, './views/partials'));
+app.set('views', path.join(__dirname, './ui-clients/views'));
+hbs.registerPartials(path.join(__dirname, './ui-clients/views/partials'));
 
 // Static files
-app.use(express.static(path.join(__dirname, './public')));
+app.use(express.static(path.join(__dirname, './ui-clients/public')));
 
 // Setup cors
 app.use(cors());
