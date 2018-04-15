@@ -3,8 +3,8 @@ const cors = require('cors');
 const hbs = require('hbs');
 const path = require('path');
 const mosca = require('./mosca');
-const state = require('./state');
-const colors = require('./colors');
+const state = require('./data/state');
+const colors = require('./data/colors');
 
 const httpPort = 3000;
 

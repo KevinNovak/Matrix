@@ -1,7 +1,7 @@
 const mosca = require('mosca');
 const validate = require('./validate');
-const topics = require('./topics');
-const state = require('./state');
+const topics = require('./data/topics');
+const state = require('./data/state');
 
 const mongoDbUrl = 'mongodb://localhost:27017/matrix';
 const mqttPort = 1883;
