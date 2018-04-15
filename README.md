@@ -11,14 +11,18 @@ Broken into 3 main applications:
         2. Serve web pages using Express.
             * Each UI client subscribes the the Mosca broker.
     * Start with ```npm start```.
+        * Remember to ```npm install```.
+        * Requires a local instance of MongoDB
 2. **LED Client**
     * Raspberry Pi client which subscribes to the Mosca broker.
     * Controls an 8x8 RGB LED matrix.
     * Start with ```python app.py```.
+        * Requires dependencies in Pipfile.  
 3. **Stream Server**
     * Streams live video of the LED matrix to the UI clients.
     * Runs on the same Raspberry Pi as the LED client.
     * Start with ```npm start```.
+        * Remember to ```npm install```.
 
 ## References
 * [Mosca](https://www.npmjs.com/package/mosca) by [Matteo Collina](https://github.com/mcollina) - Node.js MQTT broker
