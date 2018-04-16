@@ -17,7 +17,8 @@ Broken into 3 main applications:
     * Raspberry Pi client which subscribes to the Mosca broker.
     * Controls an 8x8 RGB LED matrix.
     * Start with ```python app.py```.
-        * Requires Python 3.6 and dependencies in Pipfile.  
+        * Requires Python 3.6 and dependencies in Pipfile.
+        * Run ```pipenv install``` to install dependencies.
 3. **Stream Server**
     * Streams live video of the LED matrix to the UI clients.
     * Runs on the same Raspberry Pi as the LED client.
