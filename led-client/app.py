@@ -4,6 +4,8 @@ import re
 # Third party
 import requests
 import paho.mqtt.client as mqtt
+# https://github.com/jgarff/rpi_ws281x
+from neopixel import *
 # Local
 from topics import Topic
 from colors import colors
@@ -18,6 +20,18 @@ PAYLOAD_LEDS = 'leds'
 PAYLOAD_LED_ID = 'ledId'
 PAYLOAD_COLOR = 'color'
 
+# LED strip configuration:
+LED_COUNT = 16      # Number of LED pixels.
+LED_PIN = 18      # GPIO pin connected to the pixels (18 uses PWM!).
+# LED_PIN        = 10      # GPIO pin connected to the pixels (10 uses SPI /dev/spidev0.0).
+LED_FREQ_HZ = 800000  # LED signal frequency in hertz (usually 800khz)
+LED_DMA = 10      # DMA channel to use for generating signal (try 10)
+LED_BRIGHTNESS = 255     # Set to 0 for darkest and 255 for brightest
+# True to invert the signal (when using NPN transistor level shift)
+LED_INVERT = False
+LED_CHANNEL = 0       # set to '1' for GPIOs 13, 19, 41, 45 or 53
+
+strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, LED_CHANNEL)
 
 def setLedById(ledId, color):
     try:
@@ -27,6 +41,9 @@ def setLedById(ledId, color):
         g = str(rgb[1])
         b = str(rgb[2])
         print(f'LED {led[0]} {led[1]} is R: {r}, G: {g}, B: {b}')
+        # GRB instead of RGB
+        strip.setPixelColorRGB(1, g, r, b)
+        strip.show()
     except Exception as error:
         print(error)
 
