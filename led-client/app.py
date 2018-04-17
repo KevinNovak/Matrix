@@ -5,7 +5,7 @@ import re
 import requests
 import paho.mqtt.client as mqtt
 # https://github.com/jgarff/rpi_ws281x
-import neopixel
+from neopixel import Adafruit_NeoPixel as NeoPixel
 # Local
 from topics import Topic
 from colors import colors
@@ -31,7 +31,7 @@ LED_BRIGHTNESS = 255     # Set to 0 for darkest and 255 for brightest
 LED_INVERT = False
 LED_CHANNEL = 0       # set to '1' for GPIOs 13, 19, 41, 45 or 53
 
-strip = neopixel.Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, LED_CHANNEL)
+strip = NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, LED_CHANNEL)
 strip.begin()
 
 def setLedById(ledId, color):
