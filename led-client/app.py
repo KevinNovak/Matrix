@@ -4,17 +4,19 @@ import re
 # Third party
 import requests
 import paho.mqtt.client as mqtt
-# https://github.com/jgarff/rpi_ws281x
-from neopixel import Color, Adafruit_NeoPixel as Matrix
+# See "https://github.com/jgarff/rpi_ws281x"
+from neopixel import Adafruit_NeoPixel as Matrix, Color
 # Local
 from topics import Topic
 from colors import colors
 
 API_URL = 'http://kevinnovak.me/matrix/api'
 
+# MQTT configuration
 MQTT_URL = 'kevinnovak.me'
 MQTT_PORT = 1883
 
+# MQTT payload configuration
 PAYLOAD_ENCODING = 'UTF-8'
 PAYLOAD_LEDS = 'leds'
 PAYLOAD_LED_ID = 'ledId'
