@@ -31,8 +31,10 @@ LED_BRIGHTNESS = 255     # Set to 0 for darkest and 255 for brightest
 LED_INVERT = False
 LED_CHANNEL = 0       # set to '1' for GPIOs 13, 19, 41, 45 or 53
 
-matrix = Matrix(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, LED_CHANNEL)
-matrix.begin()
+matrix = Matrix(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA,
+                LED_INVERT, LED_BRIGHTNESS, LED_CHANNEL)
+client = mqtt.Client()
+
 
 def setLedById(ledId, color):
     try:
@@ -86,6 +88,8 @@ def setState():
 
 
 def start():
+    matrix.begin()
+
     client.on_connect = onConnect
     client.on_disconnect = onDisconnect
     client.on_message = onMessage
@@ -132,5 +136,4 @@ def subscribe():
         client.subscribe(topic.value)
 
 
-client = mqtt.Client()
 start()
