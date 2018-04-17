@@ -37,10 +37,10 @@ def setLedById(ledId, color):
     try:
         led = parseLedId(ledId)
         rgb = colorToRGB(color)
-        r = rgb[0]
-        g = rgb[1]
-        b = rgb[2]
-        print(f'LED {led[0]} {led[1]} is R: {str(r)}, G: {str(g)}, B: {str(b)}')
+        r = str(rgb[0])
+        g = str(rgb[1])
+        b = str(rgb[2])
+        print(f'LED {led[0]} {led[1]} is R: {r}, G: {g}, B: {b}')
         # GRB instead of RGB
         strip.setPixelColorRGB(1, g, r, b)
         strip.show()
