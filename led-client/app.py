@@ -40,7 +40,15 @@ def setLedById(ledId, color):
         r = str(rgb[0])
         g = str(rgb[1])
         b = str(rgb[2])
+<<<<<<< HEAD
+<<<<<<< HEAD
+        print('LED' + led[0] + ' ' + led[1] + ' is R: ' + r + ', G: ' + g + ', B: ' + b)
+=======
         print(f'LED {led[0]} {led[1]} is R: {r}, G: {g}, B: {b}')
+>>>>>>> parent of 80194e5... Undoing string interpolation
+=======
+        print('LED' + led[0] + ' ' + led[1] ' is R: ' + r + ', G: ' + g + ', B: ' + b)
+>>>>>>> parent of 42fbace... Forgot +
         # GRB instead of RGB
         strip.setPixelColorRGB(1, g, r, b)
         strip.show()
