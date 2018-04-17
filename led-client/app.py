@@ -23,10 +23,10 @@ PAYLOAD_LED_ID = 'ledId'
 PAYLOAD_COLOR = 'color'
 
 # LED matrix configuration
-LED_COUNT = 16
+LED_COUNT = 64
 LED_PIN = 18
 LED_CHANNEL = 0  # Set to 1 for pins 13, 19, 41, 45 or 53
-LED_BRIGHTNESS = 255  # 0 to 255
+LED_BRIGHTNESS = 85  # 0 to 255
 
 matrix = Matrix(LED_COUNT, LED_PIN, 800000, 10,
                 False, LED_BRIGHTNESS, LED_CHANNEL)
@@ -42,7 +42,7 @@ def setLedById(ledId, color):
         b = rgb[2]
         print(f'LED {led[0]} {led[1]} is R: {str(r)}, G: {str(g)}, B: {str(b)}')
         # GRB instead of RGB
-        matrix.setPixelColor(1, Color(g, r, b))
+        matrix.setPixelColor(0, Color(g, r, b))
         matrix.show()
     except Exception as error:
         print(error)
