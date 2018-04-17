@@ -5,7 +5,7 @@ import re
 import requests
 import paho.mqtt.client as mqtt
 # https://github.com/jgarff/rpi_ws281x
-from neopixel import Adafruit_NeoPixel as NeoPixel
+from neopixel import Color, Adafruit_NeoPixel as Matrix
 # Local
 from topics import Topic
 from colors import colors
@@ -31,8 +31,8 @@ LED_BRIGHTNESS = 255     # Set to 0 for darkest and 255 for brightest
 LED_INVERT = False
 LED_CHANNEL = 0       # set to '1' for GPIOs 13, 19, 41, 45 or 53
 
-strip = NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, LED_CHANNEL)
-strip.begin()
+matrix = Matrix(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, LED_CHANNEL)
+matrix.begin()
 
 def setLedById(ledId, color):
     try:
@@ -43,8 +43,8 @@ def setLedById(ledId, color):
         b = rgb[2]
         print(f'LED {led[0]} {led[1]} is R: {str(r)}, G: {str(g)}, B: {str(b)}')
         # GRB instead of RGB
-        strip.setPixelColorRGB(1, g, r, b)
-        strip.show()
+        matrix.setPixelColor(1, Color(g, r, b))
+        matrix.show()
     except Exception as error:
         print(error)
 
