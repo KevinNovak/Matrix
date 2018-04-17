@@ -40,11 +40,7 @@ def setLedById(ledId, color):
         r = str(rgb[0])
         g = str(rgb[1])
         b = str(rgb[2])
-<<<<<<< HEAD
         print('LED' + led[0] + ' ' + led[1] + ' is R: ' + r + ', G: ' + g + ', B: ' + b)
-=======
-        print(f'LED {led[0]} {led[1]} is R: {r}, G: {g}, B: {b}')
->>>>>>> parent of 80194e5... Undoing string interpolation
         # GRB instead of RGB
         strip.setPixelColorRGB(1, g, r, b)
         strip.show()
@@ -75,12 +71,12 @@ def setAll(color):
     r = str(rgb[0])
     g = str(rgb[1])
     b = str(rgb[2])
-    print(f'R: {r}\tG: {g}\t B: {b}')
+    #print(f'R: {r}\tG: {g}\t B: {b}')
 
 
 def setState():
     try:
-        request = requests.get(f'{API_URL}/state')
+        request = requests.get(API_URL + '/state')
         state = request.json()
         for led in state[PAYLOAD_LEDS]:
             setLedById(led[PAYLOAD_LED_ID], led[PAYLOAD_COLOR])
@@ -111,8 +107,8 @@ def onMessage(client, userdata, msg):
     topic = msg.topic
     payload = msg.payload.decode(PAYLOAD_ENCODING)
 
-    print(f'  Topic: {topic}')
-    print(f'  Payload: {payload}')
+    print('  Topic: ' + topic)
+    print('  Payload: ' + payload)
 
     if topic == Topic.LED.value:
         try:
