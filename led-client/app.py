@@ -26,10 +26,10 @@ PAYLOAD_COLOR = 'color'
 LED_COUNT = 64
 LED_PIN = 18
 LED_CHANNEL = 0  # Set to 1 for pins 13, 19, 41, 45 or 53
-LED_BRIGHTNESS = 10  # 0 to 100
+LED_BRIGHTNESS = 85  # 0 to 255
 
 matrix = Matrix(LED_COUNT, LED_PIN, 800000, 10,
-                False, brightnessFromPercent(LED_BRIGHTNESS), LED_CHANNEL)
+                False, LED_BRIGHTNESS, LED_CHANNEL)
 client = mqtt.Client()
 
 
@@ -60,10 +60,6 @@ def parseLedId(ledId):
 
 def colorToRGB(color):
     return colors[color]
-
-
-def brightnessFromPercent(percent):
-    return percent * 2.55
 
 
 def clearAll():
