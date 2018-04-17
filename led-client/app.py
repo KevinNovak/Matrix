@@ -4,7 +4,6 @@ import re
 # Third party
 import requests
 import paho.mqtt.client as mqtt
-# See "https://github.com/jgarff/rpi_ws281x"
 from neopixel import Adafruit_NeoPixel as Matrix, Color
 # Local
 from topics import Topic
