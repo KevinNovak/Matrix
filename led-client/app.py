@@ -40,7 +40,7 @@ def setLedById(ledId, color):
         r = str(rgb[0])
         g = str(rgb[1])
         b = str(rgb[2])
-        print('LED' + led[0] + ' ' + led[1] ' is R: ' + r + ', G: ' + g + ', B: ' + b)
+        print('LED' + led[0] + ' ' + led[1] + ' is R: ' + r + ', G: ' + g + ', B: ' + b)
         # GRB instead of RGB
         strip.setPixelColorRGB(1, g, r, b)
         strip.show()
