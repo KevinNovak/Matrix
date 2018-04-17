@@ -7,6 +7,7 @@ import paho.mqtt.client as mqtt
 from neopixel import Adafruit_NeoPixel as Matrix, Color
 # Local
 from topics import Topic
+from leds import leds
 from colors import colors
 
 API_URL = 'http://kevinnovak.me/matrix/api'
