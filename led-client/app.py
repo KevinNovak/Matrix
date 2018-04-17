@@ -52,8 +52,8 @@ def setLedById(ledId, color):
 def ledIdToLedPos(ledId):
     match = re.match(r'^led-([0-7])-([0-7])$', ledId, flags=0)
     if match:
-        x = match.group(1)
-        y = match.group(2)
+        x = int(match.group(1))
+        y = int(match.group(2))
         return (x, y)
     else:
         raise Exception('Could not find a match.')
