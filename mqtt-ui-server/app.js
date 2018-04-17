@@ -26,9 +26,11 @@ app.use(express.static(path.join(__dirname, './client/public')));
 app.use(cors());
 
 app.get('/', (request, response) => {
+    year = new Date().getFullYear();
     response.render('index.hbs', {
         leds: state.leds,
-        colors
+        colors,
+        year
     });
 });
 
