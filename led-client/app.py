@@ -34,28 +34,19 @@ client = mqtt.Client()
 
 
 def setLedById(ledId, color):
-    try:
-        led = parseLedId(ledId)
-        rgb = colorToRGB(color)
-        r = rgb[0]
-        g = rgb[1]
-        b = rgb[2]
-        print(f'LED {led[0]} {led[1]} is R: {str(r)}, G: {str(g)}, B: {str(b)}')
-        # GRB instead of RGB
-        matrix.setPixelColor(0, Color(g, r, b))
-        matrix.show()
-    except Exception as error:
-        print(error)
+    led = ledIdToLed(ledId)
+    rgb = colorToRGB(color)
+    r = rgb[0]
+    g = rgb[1]
+    b = rgb[2]
+    print(f'LED {led} is R: {str(r)}, G: {str(g)}, B: {str(b)}')
+    # GRB instead of RGB
+    matrix.setPixelColor(led, Color(g, r, b))
+    matrix.show()
 
 
-def parseLedId(ledId):
-    match = re.match(r'^led-([0-7])-([0-7])$', ledId, flags=0)
-    if match:
-        x = match.group(1)
-        y = match.group(2)
-        return (x, y)
-    else:
-        raise Exception('Could not find a match.')
+def ledIdToLed(ledId):
+    return leds[ledId]
 
 
 def colorToRGB(color):
