@@ -20,8 +20,8 @@ cfgPayload = config['Payload']
 cfgMatrix = config['Matrix']
 cfgOther = config['Other']
 
-matrix = Matrix(cfgMatrix['LED-Count'], cfgMatrix['LED-Pin'], 800000, 10,
-                False, cfgMatrix['LED-Brightness'], cfgMatrix['LED-Channel'])
+matrix = Matrix(cfgMatrix.getint('LED-Count'), cfgMatrix.getint('LED-Pin'), 800000,
+                10, False, cfgMatrix.getint('LED-Brightness'), cfgMatrix.getint('LED-Channel'))
 client = mqtt.Client()
 
 
@@ -83,7 +83,7 @@ def start():
     client.on_disconnect = onDisconnect
     client.on_message = onMessage
 
-    client.connect(cfgMQTT['URL'], cfgMQTT['Port'], 60)
+    client.connect(cfgMQTT['URL'], cfgMQTT.getint('Port'), 60)
     client.loop_forever()
 
 
