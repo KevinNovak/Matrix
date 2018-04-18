@@ -126,4 +126,8 @@ def subscribe():
         client.subscribe(topic.value)
 
 
-start()
+if __name__ == '__main__':
+    try:
+        start()
+    except KeyboardInterrupt:
+        clearAll()
