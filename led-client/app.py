@@ -68,6 +68,7 @@ def colorToRGB(color):
 
 def clearAll():
     print('Clear topic')
+    setAll(colors['color-18'])
 
 
 def setAll(color):
@@ -78,7 +79,7 @@ def setAll(color):
     print(f'Setting all R: {str(r)}, G: {str(g)}, B: {str(b)}')
     for i in leds:
         for j in i:
-            matrix.setPixelColor(leds[i][j], Color(r, g, b))
+            matrix.setPixelColor(j, Color(r, g, b))
     matrix.show()
 
 
