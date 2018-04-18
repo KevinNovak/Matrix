@@ -68,7 +68,7 @@ def colorToRGB(color):
 
 def clearAll():
     print('Clear topic')
-    setAll(colors['color-18'])
+    setAll('color-18')
 
 
 def setAll(color):
