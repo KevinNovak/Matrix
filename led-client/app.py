@@ -36,10 +36,7 @@ client = mqtt.Client()
 def setLedById(ledId, color):
     try:
         led = ledIdToLed(ledId)
-        rgb = colorToRGB(color)
-        r = rgb[0]
-        g = rgb[1]
-        b = rgb[2]
+        (r, g, b) = colorToRGB(color)
         print(f'LED {str(led)} is R: {str(r)}, G: {str(g)}, B: {str(b)}')
         matrix.setPixelColor(led, Color(r, g, b))
         matrix.show()
@@ -68,10 +65,7 @@ def clearAll():
 
 
 def setAll(color):
-    rgb = colorToRGB(color)
-    r = rgb[0]
-    g = rgb[1]
-    b = rgb[2]
+    (r, g, b) = colorToRGB(color)
     print(f'Setting all R: {str(r)}, G: {str(g)}, B: {str(b)}')
     for i in leds:
         for j in i:
