@@ -67,7 +67,7 @@ def setAll(color):
 
 def setState():
     try:
-        request = requests.get(f'{cfgAPI['URL']}/state')
+        request = requests.get(f'{cfgAPI["URL"]}/state')
         state = request.json()
         for led in state[cfgPayload['LEDs']]:
             setLedById(led[cfgPayload['LED-ID']],
