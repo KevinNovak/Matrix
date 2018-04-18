@@ -5,7 +5,7 @@ const wsPort = 8082;
 
 const videoWidth = 960;
 const videoHeight = 540;
-const videoRotation = 180;
+const videoRotation = 0;
 
 // App setup
 var app = express();
