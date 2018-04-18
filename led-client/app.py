@@ -11,31 +11,17 @@ from topics import Topic
 from leds import leds
 from colors import colors
 
-API_URL = 'http://kevinnovak.me/matrix/api'
-
-# MQTT configuration
-MQTT_URL = 'kevinnovak.me'
-MQTT_PORT = 1883
-
-# MQTT payload configuration
-PAYLOAD_ENCODING = 'UTF-8'
-PAYLOAD_LEDS = 'leds'
-PAYLOAD_LED_ID = 'ledId'
-PAYLOAD_COLOR = 'color'
-
-# LED matrix configuration
-LED_COUNT = 64
-LED_PIN = 18
-LED_CHANNEL = 0  # Set to 1 for pins 13, 19, 41, 45 or 53
-LED_BRIGHTNESS = 15  # 0 to 255
-
-CLEAR_COLOR = 'color-18'
-
 config = configparser.ConfigParser()
 config.read('config.ini')
 
-matrix = Matrix(LED_COUNT, LED_PIN, 800000, 10,
-                False, LED_BRIGHTNESS, LED_CHANNEL)
+cfgMQTT = config['MQTT']
+cfgAPI = config['API']
+cfgPayload = config['Payload']
+cfgMatrix = config['Matrix']
+cfgOther = config['Other']
+
+matrix = Matrix(cfgMatrix['LED-Count'], cfgMatrix['LED-Pin'], 800000, 10,
+                False, cfgMatrix['LED-Brightness'], cfgMatrix['LED-Channel'])
 client = mqtt.Client()
 
 
@@ -67,7 +53,7 @@ def colorToRGB(color):
 
 def clearAll():
     print('Clearing all LEDs.')
-    setAll(CLEAR_COLOR)
+    setAll(cfgOther['Clear-Color'])
 
 
 def setAll(color):
@@ -81,10 +67,11 @@ def setAll(color):
 
 def setState():
     try:
-        request = requests.get(f'{API_URL}/state')
+        request = requests.get(f'{cfgAPI['URL']}/state')
         state = request.json()
-        for led in state[PAYLOAD_LEDS]:
-            setLedById(led[PAYLOAD_LED_ID], led[PAYLOAD_COLOR])
+        for led in state[cfgPayload['LEDs']]:
+            setLedById(led[cfgPayload['LED-ID']],
+                       led[cfgPayload['Color']])
     except Exception as error:
         print(error)
 
@@ -96,7 +83,7 @@ def start():
     client.on_disconnect = onDisconnect
     client.on_message = onMessage
 
-    client.connect(MQTT_URL, MQTT_PORT, 60)
+    client.connect(cfgMQTT['URL'], cfgMQTT['Port'], 60)
     client.loop_forever()
 
 
@@ -112,7 +99,7 @@ def onDisconnect(client, userdata, rc):
 
 def onMessage(client, userdata, msg):
     topic = msg.topic
-    payload = msg.payload.decode(PAYLOAD_ENCODING)
+    payload = msg.payload.decode(cfgAPI['Encoding'])
 
     print(f'  Topic: {topic}')
     print(f'  Payload: {payload}')
@@ -120,7 +107,8 @@ def onMessage(client, userdata, msg):
     if topic == Topic.LED.value:
         try:
             payload = json.loads(payload)
-            setLedById(payload[PAYLOAD_LED_ID], payload[PAYLOAD_COLOR])
+            setLedById(payload[cfgPayload['LED-ID']],
+                       payload[cfgPayload['Color']])
         except Exception as error:
             print(error)
     elif topic == Topic.CLEAR.value:
@@ -128,7 +116,7 @@ def onMessage(client, userdata, msg):
     elif topic == Topic.SET.value:
         try:
             payload = json.loads(payload)
-            setAll(payload[PAYLOAD_COLOR])
+            setAll(payload[cfgPayload['Color']])
         except Exception as error:
             print(error)
 
