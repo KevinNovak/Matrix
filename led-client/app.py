@@ -72,10 +72,14 @@ def clearAll():
 
 def setAll(color):
     rgb = colorToRGB(color)
-    r = str(rgb[0])
-    g = str(rgb[1])
-    b = str(rgb[2])
-    print(f'R: {r}\tG: {g}\t B: {b}')
+    r = rgb[0]
+    g = rgb[1]
+    b = rgb[2]
+    print(f'Setting all R: {str(r)}, G: {str(g)}, B: {str(b)}')
+    for i in leds:
+        for j in i:
+            matrix.setPixelColor(leds[i][j], Color(r, g, b))
+    matrix.show()
 
 
 def setState():
