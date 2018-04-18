@@ -1,6 +1,7 @@
 # Standard
 import json
 import re
+import configparser
 # Third party
 import requests
 import paho.mqtt.client as mqtt
@@ -29,6 +30,9 @@ LED_CHANNEL = 0  # Set to 1 for pins 13, 19, 41, 45 or 53
 LED_BRIGHTNESS = 15  # 0 to 255
 
 CLEAR_COLOR = 'color-18'
+
+config = configparser.ConfigParser()
+config.read('config.ini')
 
 matrix = Matrix(LED_COUNT, LED_PIN, 800000, 10,
                 False, LED_BRIGHTNESS, LED_CHANNEL)
