@@ -11,7 +11,7 @@ from topics import Topic
 from leds import leds
 from colors import colors
 
-config = configparser.ConfigParser()
+config = configparser.ConfigParser(inline_comment_prefixes=('#'))
 config.read('config.ini')
 
 cfgMQTT = config['MQTT']
