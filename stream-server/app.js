@@ -29,7 +29,7 @@ app.ws('/matrix/stream', (ws, request) => {
             binary: true
         }, (error) => {
             if (error) {
-                console.error(error);
+                console.error('Error:', error);
             };
         });
     });

@@ -221,7 +221,7 @@ function setup() {
                     payload = JSON.parse(payload);
                     setLedById(payload.ledId, payload.color);
                 } catch (error) {
-                    console.error(error);
+                    console.error('Error:', error);
                 }
                 break;
             case topics.CLEAR:
@@ -232,7 +232,7 @@ function setup() {
                     payload = JSON.parse(payload);
                     setAll(payload.color);
                 } catch (error) {
-                    console.error(error);
+                    console.error('Error:', error);
                 }
                 break;
             case topics.ONLINE:
@@ -240,7 +240,7 @@ function setup() {
                     payload = JSON.parse(payload);
                     setOnline(payload.online);
                 } catch (error) {
-                    console.error(error);
+                    console.error('Error:', error);
                 }
             default:
                 break;

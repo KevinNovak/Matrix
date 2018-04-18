@@ -68,7 +68,7 @@ function start() {
                             state.setLedById(payload.ledId, payload.color);
                         }
                     } catch (error) {
-                        console.error(error);
+                        console.error('Error:', error);
                     }
                     break;
                 case topics.CLEAR:
@@ -81,7 +81,7 @@ function start() {
                             state.setAll(payload.color);
                         }
                     } catch (error) {
-                        console.error(error);
+                        console.error('Error:', error);
                     }
                     break;
                 default:
