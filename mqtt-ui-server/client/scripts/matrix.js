@@ -25,32 +25,38 @@ var liveStreamCanvas;
 
 document.onreadystatechange = () => {
     if (document.readyState === 'complete') {
-        setup();
-        // Select elements
-        ledButtons = document.getElementsByClassName('btn led');
-        colorButtons = document.getElementsByClassName('btn color');
-        setButton = document.getElementById('control-set');
-        clearButton = document.getElementById('control-clear');
-        onlineSpan = document.getElementById('online');
-        liveStreamCanvas = document.getElementById('live-stream');
-
-        // Register events
-        for (ledButton of ledButtons) {
-            ledButton.addEventListener('click', ledClicked);
-        }
-        for (colorButton of colorButtons) {
-            colorButton.addEventListener('click', colorClicked);
-        }
-        setButton.addEventListener('click', setAllClicked);
-        clearButton.addEventListener('click', clearAllClicked);
-
+        setupClient();
+        selectElements();
+        registerEvents();
         activeColorButton = colorButtons[0];
-
-        // Start stream
-        var player = new WSAvcPlayer(liveStreamCanvas, 'webgl');
-        player.connect(streamUrl);
+        startStream();
     }
 };
+
+function selectElements() {
+    ledButtons = document.getElementsByClassName('btn led');
+    colorButtons = document.getElementsByClassName('btn color');
+    setButton = document.getElementById('control-set');
+    clearButton = document.getElementById('control-clear');
+    onlineSpan = document.getElementById('online');
+    liveStreamCanvas = document.getElementById('live-stream');
+}
+
+function registerEvents() {
+    for (ledButton of ledButtons) {
+        ledButton.addEventListener('click', ledClicked);
+    }
+    for (colorButton of colorButtons) {
+        colorButton.addEventListener('click', colorClicked);
+    }
+    setButton.addEventListener('click', setAllClicked);
+    clearButton.addEventListener('click', clearAllClicked);
+}
+
+function startStream() {
+    var player = new WSAvcPlayer(liveStreamCanvas, 'webgl');
+    player.connect(streamUrl);
+}
 
 // ==============================================
 // Colors
@@ -195,7 +201,7 @@ function setState() {
 // ==============================================
 // Connect to the MQTT Broker over WebSockets
 // The port here is the "http" port we specified on the MQTT Broker
-function setup() {
+function setupClient() {
     client = mqtt.connect(wsUrl);
 
     client.on('connect', () => {
