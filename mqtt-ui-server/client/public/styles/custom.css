@@ -95,6 +95,8 @@
     border: 1.5px solid black;
     margin: 0 auto;
     box-shadow: 0 0 2px 0 black, inset 0 0 2px 0 black;
+    -webkit-box-shadow: 0 0 2px 0 black, inset 0 0 2px 0 black;
+    -moz-box-shadow: 0 0 2px 0 black, inset 0 0 2px 0 black;
 }
 
 .btn.led {
