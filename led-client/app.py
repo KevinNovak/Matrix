@@ -12,8 +12,9 @@ from topics import Topic
 from leds import leds
 from colors import colors
 
+currentDirectory = os.path.dirname(__file__)
+configPath = os.path.join(currentDirectory, './config.ini')
 config = configparser.ConfigParser(inline_comment_prefixes=('#'))
-configPath = os.path.join(os.path.dirname(__file__), './config.ini')
 config.read(configPath)
 
 cfgMQTT = config['MQTT']
