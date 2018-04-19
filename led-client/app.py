@@ -1,6 +1,7 @@
 # Standard
 import json
 import re
+import os.path
 import configparser
 # Third party
 import requests
@@ -12,7 +13,8 @@ from leds import leds
 from colors import colors
 
 config = configparser.ConfigParser(inline_comment_prefixes=('#'))
-config.read('config.ini')
+configPath = os.path.join(os.path.dirname(__file__), './config.ini')
+config.read(configPath)
 
 cfgMQTT = config['MQTT']
 cfgAPI = config['API']
