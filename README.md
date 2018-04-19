@@ -1,5 +1,5 @@
 # Matrix
-### Color an LED matrix in real-time.
+### Control an LED matrix in real-time.
 
 Leverages the MQTT protocol using Mosca, MQTT.js, and Paho Python.
 
