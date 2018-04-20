@@ -5,6 +5,8 @@ Leverages the MQTT protocol using Mosca, MQTT.js, and Paho Python.
 
 ![Matrix](https://i.imgur.com/xKW0vTJ.png)
 
+[View screenshots from Redditors here](https://imgur.com/a/hmzj8Ev)
+
 Broken into 3 main applications:
 
 1. **MQTT/UI Server**
