@@ -17,8 +17,10 @@ function addBannedIp(ip) {
     var buffer = fs.readFileSync(banned);
     try {
         var json = JSON.parse(buffer);
-        json.bannedIps.push(ip);
-        fs.writeFileSync(banned, JSON.stringify(json));
+        if (!json.bannedIps.includes(ip)) {
+            json.bannedIps.push(ip);
+            fs.writeFileSync(banned, JSON.stringify(json));
+        }
     } catch (error) {
         console.error('Error:', error);
     }
