@@ -26,7 +26,21 @@ var moscaSettings = {
     }
 };
 
-pmx.action('ban', function (ip, reply) {
+pmx.action('online', (reply) => {
+    var ips = [];
+    var clients = server.clients;
+    for (client in clients) {
+        var ip = getIp(client);
+        if (ip != "Unknown") {
+            ips.push(ip);
+        }
+    }
+    reply({
+        ips
+    });
+});
+
+pmx.action('ban', (ip, reply) => {
     var success = false;
     var clients = server.clients;
     for (client in clients) {
