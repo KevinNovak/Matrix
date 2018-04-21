@@ -26,6 +26,16 @@ app.use(express.static(path.join(__dirname, './client/public')));
 // Setup cors
 app.use(cors());
 
+var verifyClient = (request, response, next) => {
+    var ip = request.get('x-real-ip');
+    if (bannedIps.includes(ip)) {
+        response.status(401).send('Unauthorized');
+    }
+};
+
+// Verify clients
+app.use(verifyClient);
+
 app.get('/', (request, response) => {
     var ip = request.get('x-real-ip');
     console.log('IP:', ip);
