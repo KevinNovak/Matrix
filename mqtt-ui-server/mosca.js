@@ -38,9 +38,7 @@ pmx.action('online', (reply) => {
             }
         }
     }
-    reply({
-        ips
-    });
+    reply(JSON.stringify(ips, null, 4));
 });
 
 pmx.action('ban', (ip, reply) => {
