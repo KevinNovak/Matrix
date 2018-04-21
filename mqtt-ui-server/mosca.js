@@ -61,9 +61,9 @@ function start() {
             var ip = getIp(client);
             if (isBanned(ip)) {
                 client.close();
-                console.log(`IP "${ip}" tried to connect via MQTT but is banned.`);
+                console.log(`MQTT: IP "${ip}" connected but is banned.`);
             } else {
-                console.log(`Client "${client.id}" with IP "${ip}" connected via MQTT.`);
+                console.log(`MQTT: IP "${ip}" connected.`);
             }
         }
         usersChanged();
@@ -73,7 +73,7 @@ function start() {
     server.on('clientDisconnected', (client) => {
         if (client.connection.stream.socket) {
             var ip = getIp(client);
-            console.log(`Client "${client.id}" with IP "${ip}" disconnected from MQTT.`);
+            console.log(`MQTT: IP "${ip}" disconnected.`);
         }
         usersChanged();
     });
@@ -85,7 +85,7 @@ function start() {
             //console.log(`  Topic: ${packet.topic}`);
             //console.log(`  Payload: ${packet.payload}`);
             var ip = client.connection.stream.socket.upgradeReq.headers['x-real-ip'];
-            console.log(`IP: ${ip} published Topic: ${topic}.`);
+            console.log(`MQTT: IP "${ip}" published to "${topic}".`);
             switch (topic) {
                 case topics.LED:
                     try {
