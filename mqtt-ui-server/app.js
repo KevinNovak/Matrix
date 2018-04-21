@@ -31,10 +31,11 @@ var verifyClient = (request, response, next) => {
     if (bannedIps.includes(ip)) {
         response.status(401).send('Unauthorized');
     }
+    next();
 };
 
 // Verify clients
-//app.use(verifyClient);
+app.use(verifyClient);
 
 app.get('/', (request, response) => {
     var ip = request.get('x-real-ip');
