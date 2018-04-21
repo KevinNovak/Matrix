@@ -1,4 +1,5 @@
 const mosca = require('mosca');
+const pmx = require('pmx');
 const validate = require('./validate');
 const bans = require('./bans');
 const topics = require('./data/topics');
@@ -25,6 +26,22 @@ var moscaSettings = {
     }
 };
 
+pmx.action('ban', function (ip, reply) {
+    var success = false;
+    var clients = server.clients;
+    for (client in clients) {
+        if (getIp(client) == ip) {
+            client.close();
+            success = true;
+            console.log(`MQTT: Banned IP "${ip}"`);
+        }
+    }
+    reply({
+        success,
+        ip
+    });
+});
+
 function usersChanged() {
     var online = Object.keys(server.clients)
         .filter(c => c.startsWith('mqttjs')).length;
@@ -41,7 +58,14 @@ function usersChanged() {
 }
 
 function getIp(client) {
-    return client.connection.stream.socket.upgradeReq.headers['x-real-ip'];
+    var ip;
+    try {
+        ip = client.connection.stream.socket.upgradeReq.headers['x-real-ip'];
+    } catch (error) {
+        console.error('Error:', error);
+        ip = "Unknown";
+    }
+    return ip;
 }
 
 function isBanned(ip) {
