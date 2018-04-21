@@ -29,10 +29,13 @@ var moscaSettings = {
 pmx.action('online', (reply) => {
     var ips = [];
     var clients = server.clients;
-    for (client in clients) {
-        var ip = getIp(client);
-        if (ip != "Unknown") {
-            ips.push(ip);
+    for (var clientKey in clients) {
+        if (clients.hasOwnProperty(clientKey)) {
+            var client = clients[clientKey];
+            var ip = getIp(client);
+            if (ip && ip != "Unknown") {
+                ips.push(ip);
+            }
         }
     }
     reply({
@@ -43,11 +46,14 @@ pmx.action('online', (reply) => {
 pmx.action('ban', (ip, reply) => {
     var success = false;
     var clients = server.clients;
-    for (client in clients) {
-        if (getIp(client) == ip) {
-            client.close();
-            success = true;
-            console.log(`MQTT: Banned IP "${ip}"`);
+    for (var clientKey in clients) {
+        if (clients.hasOwnProperty(clientKey)) {
+            var client = clients[clientKey];
+            if (getIp(client) == ip) {
+                client.close();
+                success = true;
+                console.log(`MQTT: Banned IP "${ip}"`);
+            }
         }
     }
     reply({
