@@ -45,7 +45,7 @@ function verifyClient(client) {
         var ip = client.connection.stream.socket.upgradeReq.headers['x-real-ip'];
         if (bannedIps.includes(ip)) {
             client.close();
-            console.log(`IP ${ip} tried to connect but is banned.`);
+            console.log(`IP ${ip} tried to connect via MQTT but is banned.`);
         }
     }
 }
