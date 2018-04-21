@@ -2,10 +2,10 @@ const express = require('express');
 const cors = require('cors');
 const hbs = require('hbs');
 const path = require('path');
+const bans = require('./bans');
 const mosca = require('./mosca');
 const state = require('./data/state');
 const colors = require('./data/colors');
-const bannedIps = require('./data/banned');
 
 const httpPort = 3000;
 
@@ -28,6 +28,7 @@ app.use(cors());
 
 var verifyClient = (request, response, next) => {
     var ip = request.get('x-real-ip');
+    var bannedIps = bans.getBannedIps();
     if (bannedIps.includes(ip)) {
         console.log(`IP ${ip} tried to connect via HTTP but is banned.`);
         response.status(401).send('Unauthorized');
@@ -42,14 +43,12 @@ app.use(verifyClient);
 app.get('/', (request, response) => {
     var ip = request.get('x-real-ip');
     console.log(`IP: ${ip} connected to the Matrix.`);
-    if (!bannedIps.includes(ip)) {
-        year = new Date().getFullYear();
-        response.render('index.hbs', {
-            leds: state.leds,
-            colors,
-            year
-        });
-    }
+    year = new Date().getFullYear();
+    response.render('index.hbs', {
+        leds: state.leds,
+        colors,
+        year
+    });
 });
 
 app.get('/api/state', (request, response) => {

@@ -1,8 +1,8 @@
 const mosca = require('mosca');
 const validate = require('./validate');
+const bans = require('./bans');
 const topics = require('./data/topics');
 const state = require('./data/state');
-const bannedIps = require('./data/banned');
 
 const mongoDbUrl = 'mongodb://localhost:27017/matrix';
 const mqttPort = 1883;
@@ -43,6 +43,7 @@ function usersChanged() {
 function verifyClient(client) {
     if (client.connection.stream.socket) {
         var ip = client.connection.stream.socket.upgradeReq.headers['x-real-ip'];
+        var bannedIps = bans.getBannedIps();
         if (bannedIps.includes(ip)) {
             client.close();
             console.log(`IP ${ip} tried to connect via MQTT but is banned.`);
