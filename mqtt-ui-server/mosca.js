@@ -81,7 +81,6 @@ function getIp(client) {
     try {
         ip = client.connection.stream.socket.upgradeReq.headers['x-real-ip'];
     } catch (error) {
-        console.error('Error:', error);
         ip = "Unknown";
     }
     return ip;
