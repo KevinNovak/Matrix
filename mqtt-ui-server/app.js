@@ -38,7 +38,7 @@ app.use(verifyClient);
 
 app.get('/', (request, response) => {
     var ip = request.get('x-real-ip');
-    console.log('IP:', ip);
+    console.log(`IP: ${ip} connected to the Matrix.`);
     if (!bannedIps.includes(ip)) {
         year = new Date().getFullYear();
         response.render('index.hbs', {
