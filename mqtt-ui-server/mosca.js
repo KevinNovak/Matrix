@@ -40,11 +40,22 @@ function usersChanged() {
     server.publish(message);
 }
 
+function verifyClient(client) {
+    if (client.connection.stream.socket) {
+        var ip = client.connection.stream.socket.upgradeReq.headers['x-real-ip'];
+        if (bannedIps.includes(ip)) {
+            client.close();
+            console.log(`IP ${ip} tried to connect but is banned.`);
+        }
+    }
+}
+
 function start() {
     server = new mosca.Server(moscaSettings);
 
     // Client connects
     server.on('clientConnected', (client) => {
+        verifyClient(client);
         usersChanged();
         console.log(`Client "${client.id}" connected.`);
     });
@@ -63,34 +74,32 @@ function start() {
             //console.log(`  Payload: ${packet.payload}`);
             var ip = client.connection.stream.socket.upgradeReq.headers['x-real-ip'];
             console.log(`IP: ${ip} published Topic: ${topic}.`);
-            if (!bannedIps.includes(ip)) {
-                switch (topic) {
-                    case topics.LED:
-                        try {
-                            var payload = JSON.parse(packet.payload);
-                            if (validate.isLedTopic(payload)) {
-                                state.setLedById(payload.ledId, payload.color);
-                            }
-                        } catch (error) {
-                            console.error('Error:', error);
+            switch (topic) {
+                case topics.LED:
+                    try {
+                        var payload = JSON.parse(packet.payload);
+                        if (validate.isLedTopic(payload)) {
+                            state.setLedById(payload.ledId, payload.color);
                         }
-                        break;
-                    case topics.CLEAR:
-                        state.clearAll();
-                        break;
-                    case topics.SET:
-                        try {
-                            var payload = JSON.parse(packet.payload);
-                            if (validate.isSetTopic(payload)) {
-                                state.setAll(payload.color);
-                            }
-                        } catch (error) {
-                            console.error('Error:', error);
+                    } catch (error) {
+                        console.error('Error:', error);
+                    }
+                    break;
+                case topics.CLEAR:
+                    state.clearAll();
+                    break;
+                case topics.SET:
+                    try {
+                        var payload = JSON.parse(packet.payload);
+                        if (validate.isSetTopic(payload)) {
+                            state.setAll(payload.color);
                         }
-                        break;
-                    default:
-                        break;
-                }
+                    } catch (error) {
+                        console.error('Error:', error);
+                    }
+                    break;
+                default:
+                    break;
             }
         }
     });
