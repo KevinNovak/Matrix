@@ -34,7 +34,7 @@ var verifyClient = (request, response, next) => {
 };
 
 // Verify clients
-app.use(verifyClient);
+//app.use(verifyClient);
 
 app.get('/', (request, response) => {
     var ip = request.get('x-real-ip');
