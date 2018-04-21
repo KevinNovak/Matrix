@@ -98,6 +98,7 @@ def onConnect(client, userdata, flags, rc):
 
 def onDisconnect(client, userdata, rc):
     print('Disconnected from MQTT Broker.')
+    clearAll()
 
 
 def onMessage(client, userdata, msg):
