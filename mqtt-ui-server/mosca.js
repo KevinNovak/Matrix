@@ -40,15 +40,16 @@ function usersChanged() {
     server.publish(message);
 }
 
-function verifyClient(client) {
-    if (client.connection.stream.socket) {
-        var ip = client.connection.stream.socket.upgradeReq.headers['x-real-ip'];
-        var bannedIps = bans.getBannedIps();
-        if (bannedIps.includes(ip)) {
-            client.close();
-            console.log(`IP ${ip} tried to connect via MQTT but is banned.`);
-        }
+function getIp(client) {
+    return client.connection.stream.socket.upgradeReq.headers['x-real-ip'];
+}
+
+function isBanned(ip) {
+    var bannedIps = bans.getBannedIps();
+    if (bannedIps.includes(ip)) {
+        return true;
     }
+    return false;
 }
 
 function start() {
@@ -56,15 +57,25 @@ function start() {
 
     // Client connects
     server.on('clientConnected', (client) => {
-        verifyClient(client);
+        if (client.connection.stream.socket) {
+            var ip = getIp(client);
+            if (isBanned(ip)) {
+                client.close();
+                console.log(`IP "${ip}" tried to connect via MQTT but is banned.`);
+            } else {
+                console.log(`Client "${client.id}" with IP "${ip}" connected via MQTT.`);
+            }
+        }
         usersChanged();
-        console.log(`Client "${client.id}" connected.`);
     });
 
     // Client disconnects
     server.on('clientDisconnected', (client) => {
+        if (client.connection.stream.socket) {
+            var ip = getIp(client);
+            console.log(`Client "${client.id}" with IP "${ip}" disconnected from MQTT.`);
+        }
         usersChanged();
-        console.log(`Client "${client.id}" disconnected.`);
     });
 
     // Message recieved
