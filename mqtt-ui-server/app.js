@@ -26,7 +26,7 @@ app.use(express.static(path.join(__dirname, './client/public')));
 app.use(cors());
 
 app.get('/', (request, response) => {
-    console.log('IP:', req.get('x-real-ip'));
+    console.log('IP:', request.get('x-real-ip'));
     year = new Date().getFullYear();
     response.render('index.hbs', {
         leds: state.leds,
