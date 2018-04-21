@@ -30,7 +30,7 @@ var verifyClient = (request, response, next) => {
     var ip = request.get('x-real-ip');
     var bannedIps = bans.getBannedIps();
     if (bannedIps.includes(ip)) {
-        console.log(`IP ${ip} tried to connect via HTTP but is banned.`);
+        console.log(`HTTP: IP "${ip}" requested site but is banned.`);
         response.status(401).send('Unauthorized');
     } else {
         next();
@@ -42,7 +42,7 @@ app.use(verifyClient);
 
 app.get('/', (request, response) => {
     var ip = request.get('x-real-ip');
-    console.log(`IP: ${ip} connected to the Matrix.`);
+    console.log(`HTTP: IP "${ip}" requested site.`);
     year = new Date().getFullYear();
     response.render('index.hbs', {
         leds: state.leds,
