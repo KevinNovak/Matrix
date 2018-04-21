@@ -5,6 +5,7 @@ const path = require('path');
 const mosca = require('./mosca');
 const state = require('./data/state');
 const colors = require('./data/colors');
+const bannedIps = require('./data/banned');
 
 const httpPort = 3000;
 
@@ -26,13 +27,16 @@ app.use(express.static(path.join(__dirname, './client/public')));
 app.use(cors());
 
 app.get('/', (request, response) => {
-    console.log('IP:', request.get('x-real-ip'));
-    year = new Date().getFullYear();
-    response.render('index.hbs', {
-        leds: state.leds,
-        colors,
-        year
-    });
+    var ip = request.get('x-real-ip');
+    console.log('IP:', ip);
+    if (!bannedIps.includes(ip)) {
+        year = new Date().getFullYear();
+        response.render('index.hbs', {
+            leds: state.leds,
+            colors,
+            year
+        });
+    }
 });
 
 app.get('/api/state', (request, response) => {

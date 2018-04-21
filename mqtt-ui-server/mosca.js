@@ -2,6 +2,7 @@ const mosca = require('mosca');
 const validate = require('./validate');
 const topics = require('./data/topics');
 const state = require('./data/state');
+const bannedIps = require('./data/banned');
 
 const mongoDbUrl = 'mongodb://localhost:27017/matrix';
 const mqttPort = 1883;
@@ -62,32 +63,34 @@ function start() {
             //console.log(`  Payload: ${packet.payload}`);
             var ip = client.connection.stream.socket.upgradeReq.headers['x-real-ip'];
             console.log(`IP: ${ip} published Topic: ${topic}.`);
-            switch (topic) {
-                case topics.LED:
-                    try {
-                        var payload = JSON.parse(packet.payload);
-                        if (validate.isLedTopic(payload)) {
-                            state.setLedById(payload.ledId, payload.color);
+            if (!bannedIps.includes(ip)) {
+                switch (topic) {
+                    case topics.LED:
+                        try {
+                            var payload = JSON.parse(packet.payload);
+                            if (validate.isLedTopic(payload)) {
+                                state.setLedById(payload.ledId, payload.color);
+                            }
+                        } catch (error) {
+                            console.error('Error:', error);
                         }
-                    } catch (error) {
-                        console.error('Error:', error);
-                    }
-                    break;
-                case topics.CLEAR:
-                    state.clearAll();
-                    break;
-                case topics.SET:
-                    try {
-                        var payload = JSON.parse(packet.payload);
-                        if (validate.isSetTopic(payload)) {
-                            state.setAll(payload.color);
+                        break;
+                    case topics.CLEAR:
+                        state.clearAll();
+                        break;
+                    case topics.SET:
+                        try {
+                            var payload = JSON.parse(packet.payload);
+                            if (validate.isSetTopic(payload)) {
+                                state.setAll(payload.color);
+                            }
+                        } catch (error) {
+                            console.error('Error:', error);
                         }
-                    } catch (error) {
-                        console.error('Error:', error);
-                    }
-                    break;
-                default:
-                    break;
+                        break;
+                    default:
+                        break;
+                }
             }
         }
     });
