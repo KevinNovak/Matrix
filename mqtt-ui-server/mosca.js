@@ -57,9 +57,11 @@ function start() {
     // Message recieved
     server.on('published', (packet, client) => {
         var topic = packet.topic;
-        if (!topic.startsWith('$SYS/')) {
+        if (!topic.startsWith('$SYS/') && client) {
             //console.log(`  Topic: ${packet.topic}`);
             //console.log(`  Payload: ${packet.payload}`);
+            var ip = client.connection.stream.socket.upgradeReq.headers['x-real-ip'];
+            console.log(`IP: ${ip} published Topic: ${topic}.`);
             switch (topic) {
                 case topics.LED:
                     try {
