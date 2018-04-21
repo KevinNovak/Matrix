@@ -4,7 +4,7 @@
   "description": "Web application for controlling an LED matrix.",
   "main": "app.js",
   "scripts": {
-    "start": "webpack -p && pm2 start app.js --name Matrix",
+    "start": "webpack -p && pm2 start app.js --name matrix",
     "build": "webpack -p",
     "watch": "webpack --watch"
   },
