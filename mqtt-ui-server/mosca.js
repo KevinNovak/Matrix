@@ -58,8 +58,8 @@ function start() {
     server.on('published', (packet, client) => {
         var topic = packet.topic;
         if (!topic.startsWith('$SYS/')) {
-            console.log(`  Topic: ${packet.topic}`);
-            console.log(`  Payload: ${packet.payload}`);
+            //console.log(`  Topic: ${packet.topic}`);
+            //console.log(`  Payload: ${packet.payload}`);
             switch (topic) {
                 case topics.LED:
                     try {
