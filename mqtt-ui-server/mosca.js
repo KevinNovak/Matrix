@@ -78,21 +78,49 @@ function usersChanged() {
     server.publish(message);
 }
 
-function getIp(client) {
-    var ip;
-    try {
-        ip = client.connection.stream.socket.upgradeReq.headers['x-real-ip'];
-    } catch (error) {
-        ip = "Unknown";
-    }
-    return ip;
-}
-
 function isValidClient(client) {
     return client &&
         client.connection &&
         client.connection.stream &&
-        client.connection.stream.socket;
+        client.connection.stream.socket &&
+        client.connection.stream.socket.upgradeReq &&
+        client.connection.stream.socket.upgradeReq.headers;
+}
+
+function getIp(client) {
+    if (isValidClient(client)) {
+        return client.connection.stream.socket.upgradeReq.headers['x-real-ip'];
+    }
+}
+
+function handleTopic(topic, payload) {
+    switch (topic) {
+        case topics.LED:
+            try {
+                payload = JSON.parse(payload);
+                if (validate.isLedTopic(payload)) {
+                    state.setLedById(payload.ledId, payload.color);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+            break;
+        case topics.CLEAR:
+            state.clearAll();
+            break;
+        case topics.SET:
+            try {
+                payload = JSON.parse(packet.payload);
+                if (validate.isSetTopic(payload)) {
+                    state.setAll(payload.color);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+            break;
+        default:
+            break;
+    }
 }
 
 function start() {
@@ -100,8 +128,8 @@ function start() {
 
     // Client connects
     server.on('clientConnected', (client) => {
-        if (isValidClient(client)) {
-            var ip = getIp(client);
+        var ip = getIp(client);
+        if (ip) {
             if (bans.isBanned(ip)) {
                 client.close();
                 console.log(`MQTT: IP "${ip}" connected but is banned.`);
@@ -114,8 +142,8 @@ function start() {
 
     // Client disconnects
     server.on('clientDisconnected', (client) => {
-        if (isValidClient(client)) {
-            var ip = getIp(client);
+        var ip = getIp(client);
+        if (ip) {
             console.log(`MQTT: IP "${ip}" disconnected.`);
         }
         usersChanged();
@@ -123,37 +151,10 @@ function start() {
 
     // Message recieved
     server.on('published', (packet, client) => {
-        var topic = packet.topic;
-        if (!topic.startsWith('$SYS/') && client) {
-            var ip = getIp(client);
+        var ip = getIp(client);
+        if (ip) {
             console.log(`MQTT: IP "${ip}" published to "${topic}".`);
-            switch (topic) {
-                case topics.LED:
-                    try {
-                        var payload = JSON.parse(packet.payload);
-                        if (validate.isLedTopic(payload)) {
-                            state.setLedById(payload.ledId, payload.color);
-                        }
-                    } catch (error) {
-                        console.error('Error:', error);
-                    }
-                    break;
-                case topics.CLEAR:
-                    state.clearAll();
-                    break;
-                case topics.SET:
-                    try {
-                        var payload = JSON.parse(packet.payload);
-                        if (validate.isSetTopic(payload)) {
-                            state.setAll(payload.color);
-                        }
-                    } catch (error) {
-                        console.error('Error:', error);
-                    }
-                    break;
-                default:
-                    break;
-            }
+            handleTopic(packet.topic, packet.payload);
         }
     });
 
