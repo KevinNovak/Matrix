@@ -11,7 +11,7 @@ function load() {
     var buffer = fs.readFileSync(banned);
     try {
         var json = JSON.parse(buffer);
-        return json.bannedIps;
+        bannedIps = json.bannedIps;
     } catch (error) {
         console.error('Error:', error);
     }
