@@ -32,7 +32,6 @@ def setLedById(ledId, color):
     try:
         led = ledIdToLed(ledId)
         (r, g, b) = colorToRGB(color)
-        # print(f'LED {str(led)} is R: {str(r)}, G: {str(g)}, B: {str(b)}')
         matrix.setPixelColor(led, Color(r, g, b))
         matrix.show()
     except Exception as error:
@@ -55,13 +54,11 @@ def colorToRGB(color):
 
 
 def clearAll():
-    # print('Clearing all LEDs.')
     setAll(cfgOther['Clear-Color'])
 
 
 def setAll(color):
     (r, g, b) = colorToRGB(color)
-    # print(f'Setting all R: {str(r)}, G: {str(g)}, B: {str(b)}')
     for row in leds:
         for led in row:
             matrix.setPixelColor(led, Color(r, g, b))
