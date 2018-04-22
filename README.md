@@ -22,6 +22,7 @@ Broken into 3 main applications:
         * View logs with ```pm2 logs matrix```.
         * See online users with ```pm2 trigger matrix online```.
         * Ban a user with ```pm2 trigger matrix ban <ip>```.
+        * Unban a user with ```pm2 trigger matrix unban <ip>```.
 2. **LED Client**
     * Raspberry Pi client which subscribes to the Mosca broker.
     * Controls an 8x8 RGB LED matrix.
