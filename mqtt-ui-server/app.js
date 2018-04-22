@@ -5,7 +5,7 @@ const path = require('path');
 const bans = require('./bans');
 const mosca = require('./mosca');
 const state = require('./data/state');
-const colors = require('./data/colors');
+const colors = require('./data/colors').colors;
 
 const httpPort = 3000;
 
