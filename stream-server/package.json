@@ -1,16 +1,35 @@
 {
+  "author": "Kevin Novak",
   "name": "matrix-stream",
   "version": "1.0.0",
   "description": "Stream live video of an LED matrix.",
+  "keywords": [
+    "rgb",
+    "led",
+    "matrix",
+    "mqtt",
+    "mosca",
+    "raspberry",
+    "pi",
+    "iot",
+    "paho"
+  ],
+  "license": "MIT",
   "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
   "dependencies": {
     "express": "4.16.3",
     "express-ws": "3.0.0",
     "raspivid-stream": "0.2.1"
   },
-  "scripts": {
-    "start": "node app.js"
+  "homepage": "https://github.com/KevinNovak/Matrix#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KevinNovak/Matrix.git"
   },
-  "author": "Kevin Novak",
-  "license": "MIT"
+  "bugs": {
+    "url": "https://github.com/KevinNovak/Matrix/issues"
+  }
 }
