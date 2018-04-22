@@ -16,7 +16,8 @@ Broken into 3 main applications:
             * Each UI client subscribes to the Mosca broker.
     * Start with ```npm start```.
         * Remember to ```npm install```.
-        * Requires a local instance of MongoDB.
+        * Requires a MongoDB instance.
+        * NGINX is an optional dependency.
 2. **LED Client**
     * Raspberry Pi client which subscribes to the Mosca broker.
     * Controls an 8x8 RGB LED matrix.
