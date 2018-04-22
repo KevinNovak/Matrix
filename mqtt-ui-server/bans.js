@@ -3,7 +3,9 @@ const path = require('path');
 
 const banned = path.join(__dirname, './data/banned.json');
 
-function getBannedIps() {
+var bannedIps = [];
+
+function load() {
     var buffer = fs.readFileSync(banned);
     try {
         var json = JSON.parse(buffer);
@@ -13,21 +15,25 @@ function getBannedIps() {
     }
 }
 
-function addBannedIp(ip) {
-    var buffer = fs.readFileSync(banned);
+function save() {
     try {
-        var json = JSON.parse(buffer);
-        if (!json.bannedIps.includes(ip)) {
-            json.bannedIps.push(ip);
-            json.bannedIps.sort();
-            fs.writeFileSync(banned, JSON.stringify(json, null, 4));
-        }
+        fs.writeFileSync(banned, JSON.stringify({
+            bannedIps
+        }, null, 4));
     } catch (error) {
         console.error('Error:', error);
     }
 }
 
+function add(ip) {
+    if (!bannedIps.includes(ip)) {
+        bannedIps.push(ip);
+        bannedIps.sort();
+        save();
+    }
+}
+
 module.exports = {
-    getBannedIps,
-    addBannedIp
+    bannedIps,
+    add
 };

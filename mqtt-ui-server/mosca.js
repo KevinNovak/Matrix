@@ -50,7 +50,7 @@ pmx.action('ban', (ip, reply) => {
         if (clients.hasOwnProperty(clientKey)) {
             var client = clients[clientKey];
             if (getIp(client) == ip) {
-                bans.addBannedIp(ip);
+                bans.add(ip);
                 client.close();
                 success = true;
                 console.log(`MQTT: Banned IP "${ip}"`);
@@ -89,8 +89,7 @@ function getIp(client) {
 }
 
 function isBanned(ip) {
-    var bannedIps = bans.getBannedIps();
-    if (bannedIps.includes(ip)) {
+    if (bans.bannedIps.includes(ip)) {
         return true;
     }
     return false;

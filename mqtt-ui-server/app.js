@@ -28,8 +28,7 @@ app.use(cors());
 
 var verifyClient = (request, response, next) => {
     var ip = request.get('x-real-ip');
-    var bannedIps = bans.getBannedIps();
-    if (bannedIps.includes(ip)) {
+    if (bans.bannedIps.includes(ip)) {
         console.log(`HTTP: IP "${ip}" requested site but is banned.`);
         response.status(401).send('Unauthorized');
     } else {
