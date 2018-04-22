@@ -40,6 +40,6 @@ function isBanned(ip) {
 }
 
 module.exports = {
-    bannedIps,
-    add
+    add,
+    isBanned
 };
