@@ -35,11 +35,22 @@ function add(ip) {
     }
 }
 
+function remove(ip) {
+    if (isBanned(ip)) {
+        var index = bannedIps.indexOf(ip);
+        if (index > -1) {
+            bannedIps.splice(index, 1);
+            save();
+        }
+    }
+}
+
 function isBanned(ip) {
     return bannedIps.includes(ip);
 }
 
 module.exports = {
     add,
+    remove,
     isBanned
 };

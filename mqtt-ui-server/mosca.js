@@ -196,6 +196,19 @@ pmx.action('ban', (ip, reply) => {
     });
 });
 
+pmx.action('unban', (ip, reply) => {
+    var success = false;
+    if (bans.isBanned(ip)) {
+        bans.remove(ip);
+        success = true;
+        console.log(`MQTT: Unbanned IP "${ip}"`);
+    }
+    reply({
+        success,
+        ip
+    });
+});
+
 module.exports = {
     start
 };
