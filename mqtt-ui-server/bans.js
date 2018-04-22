@@ -5,6 +5,8 @@ const banned = path.join(__dirname, './data/banned.json');
 
 var bannedIps = [];
 
+load();
+
 function load() {
     var buffer = fs.readFileSync(banned);
     try {
