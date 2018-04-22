@@ -173,20 +173,25 @@ pmx.action('online', (reply) => {
 
 pmx.action('ban', (ip, reply) => {
     var success = false;
-    var clients = server.clients;
-    for (var clientKey in clients) {
-        if (clients.hasOwnProperty(clientKey)) {
-            var client = clients[clientKey];
-            if (getIp(client) == ip) {
-                bans.add(ip);
-                client.close();
-                success = true;
-                console.log(`MQTT: Banned IP "${ip}"`);
+    var online = false;
+    if (!bans.isBanned(ip)) {
+        bans.add(ip);
+        var clients = server.clients;
+        for (var clientKey in clients) {
+            if (clients.hasOwnProperty(clientKey)) {
+                var client = clients[clientKey];
+                if (getIp(client) == ip) {
+                    client.close();
+                    online = true;
+                }
             }
         }
+        success = true;
+        console.log(`MQTT: Banned IP "${ip}"`);
     }
     reply({
         success,
+        online,
         ip
     });
 });

@@ -28,7 +28,7 @@ function save() {
 }
 
 function add(ip) {
-    if (!bannedIps.includes(ip)) {
+    if (!isBanned(ip)) {
         bannedIps.push(ip);
         bannedIps.sort();
         save();
