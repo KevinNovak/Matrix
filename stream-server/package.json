@@ -6,10 +6,11 @@
   "dependencies": {
     "express": "4.16.3",
     "express-ws": "3.0.0",
+    "pm2": "^2.10.2",
     "raspivid-stream": "0.2.1"
   },
   "scripts": {
-    "start": "node app.js"
+    "start": "pm2 start app.js --name matrix-stream"
   },
   "author": "Kevin Novak",
   "license": "MIT"
