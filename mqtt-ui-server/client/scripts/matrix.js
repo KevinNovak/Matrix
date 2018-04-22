@@ -184,7 +184,6 @@ function setState() {
             return response.json();
         })
         .then((state) => {
-            console.log(state);
             setOnline(state.online);
             for (led of state.leds) {
                 setLedById(led.ledId, led.color);
