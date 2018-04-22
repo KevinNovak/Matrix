@@ -105,9 +105,6 @@ def onMessage(client, userdata, msg):
     topic = msg.topic
     payload = msg.payload.decode(cfgAPI['Encoding'])
 
-    # print(f'  Topic: {topic}')
-    # print(f'  Payload: {payload}')
-
     if topic == Topic.LED.value:
         try:
             payload = json.loads(payload)

@@ -125,8 +125,6 @@ function start() {
     server.on('published', (packet, client) => {
         var topic = packet.topic;
         if (!topic.startsWith('$SYS/') && client) {
-            //console.log(`  Topic: ${packet.topic}`);
-            //console.log(`  Payload: ${packet.payload}`);
             var ip = getIp(client);
             console.log(`MQTT: IP "${ip}" published to "${topic}".`);
             switch (topic) {

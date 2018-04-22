@@ -217,10 +217,6 @@ function setupClient() {
 
     // Message recieved
     client.on('message', (topic, payload) => {
-        // Log message
-        console.log(`  Topic: ${topic}`);
-        console.log(`  Payload: ${payload}`);
-
         switch (topic) {
             case topics.LED:
                 try {
