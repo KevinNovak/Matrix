@@ -153,8 +153,10 @@ function start() {
     server.on('published', (packet, client) => {
         var ip = getIp(client);
         if (ip) {
+            var topic = packet.topic;
+            var payload = packet.payload;
             console.log(`MQTT: IP "${ip}" published to "${topic}".`);
-            handleTopic(packet.topic, packet.payload);
+            handleTopic(topic, payload);
         }
     });
 
