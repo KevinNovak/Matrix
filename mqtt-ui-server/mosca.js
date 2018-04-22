@@ -140,7 +140,7 @@ function formatIps(ips) {
     // Count duplicates
     var counts = {};
     ips.forEach((ip) => {
-        counts[x] = (counts[x] || 0) + 1;
+        counts[ip] = (counts[ip] || 0) + 1;
     });
 
     // Remove duplicates
