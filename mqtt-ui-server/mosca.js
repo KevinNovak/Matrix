@@ -88,12 +88,19 @@ function getIp(client) {
     return ip;
 }
 
+function isValidClient(client) {
+    return client &&
+        client.connection &&
+        client.connection.stream &&
+        client.connection.stream.socket;
+}
+
 function start() {
     server = new mosca.Server(moscaSettings);
 
     // Client connects
     server.on('clientConnected', (client) => {
-        if (client.connection.stream.socket) {
+        if (isValidClient(client)) {
             var ip = getIp(client);
             if (bans.isBanned(ip)) {
                 client.close();
@@ -107,7 +114,7 @@ function start() {
 
     // Client disconnects
     server.on('clientDisconnected', (client) => {
-        if (client.connection.stream.socket) {
+        if (isValidClient(client)) {
             var ip = getIp(client);
             console.log(`MQTT: IP "${ip}" disconnected.`);
         }
@@ -120,7 +127,7 @@ function start() {
         if (!topic.startsWith('$SYS/') && client) {
             //console.log(`  Topic: ${packet.topic}`);
             //console.log(`  Payload: ${packet.payload}`);
-            var ip = client.connection.stream.socket.upgradeReq.headers['x-real-ip'];
+            var ip = getIp(client);
             console.log(`MQTT: IP "${ip}" published to "${topic}".`);
             switch (topic) {
                 case topics.LED:
