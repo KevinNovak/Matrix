@@ -148,6 +148,7 @@ pmx.action('online', (reply) => {
             }
         }
     }
+    ips.sort();
     reply({
         ips
     });
