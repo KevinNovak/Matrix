@@ -136,6 +136,23 @@ function start() {
     return server;
 };
 
+function formatIps(ips) {
+    // Count duplicates
+    var counts = {};
+    ips.forEach((ip) => {
+        counts[x] = (counts[x] || 0) + 1;
+    });
+
+    // Remove duplicates
+    ips = Array.from(new Set(ips));
+
+    // Format
+    ips.sort();
+    ips = ips.map(ip => `${ip} (${counts[ip]})`);
+
+    return ips;
+}
+
 pmx.action('online', (reply) => {
     var ips = [];
     var clients = server.clients;
@@ -148,7 +165,7 @@ pmx.action('online', (reply) => {
             }
         }
     }
-    ips.sort();
+    ips = formatIps(ips);
     reply({
         ips
     });
