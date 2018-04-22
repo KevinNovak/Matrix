@@ -88,13 +88,6 @@ function getIp(client) {
     return ip;
 }
 
-function isBanned(ip) {
-    if (bans.bannedIps.includes(ip)) {
-        return true;
-    }
-    return false;
-}
-
 function start() {
     server = new mosca.Server(moscaSettings);
 
@@ -102,7 +95,7 @@ function start() {
     server.on('clientConnected', (client) => {
         if (client.connection.stream.socket) {
             var ip = getIp(client);
-            if (isBanned(ip)) {
+            if (bans.isBanned(ip)) {
                 client.close();
                 console.log(`MQTT: IP "${ip}" connected but is banned.`);
             } else {

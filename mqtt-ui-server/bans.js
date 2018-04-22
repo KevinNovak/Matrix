@@ -35,6 +35,10 @@ function add(ip) {
     }
 }
 
+function isBanned(ip) {
+    return bannedIps.includes(ip);
+}
+
 module.exports = {
     bannedIps,
     add
