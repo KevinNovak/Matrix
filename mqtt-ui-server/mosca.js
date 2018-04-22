@@ -110,7 +110,7 @@ function handleTopic(topic, payload) {
             break;
         case topics.SET:
             try {
-                payload = JSON.parse(packet.payload);
+                payload = JSON.parse(payload);
                 if (validate.isSetTopic(payload)) {
                     state.setAll(payload.color);
                 }
