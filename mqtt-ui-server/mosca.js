@@ -26,43 +26,6 @@ var moscaSettings = {
     }
 };
 
-pmx.action('online', (reply) => {
-    var ips = [];
-    var clients = server.clients;
-    for (var clientKey in clients) {
-        if (clients.hasOwnProperty(clientKey)) {
-            var client = clients[clientKey];
-            var ip = getIp(client);
-            if (ip && ip != "Unknown") {
-                ips.push(ip);
-            }
-        }
-    }
-    reply({
-        ips
-    });
-});
-
-pmx.action('ban', (ip, reply) => {
-    var success = false;
-    var clients = server.clients;
-    for (var clientKey in clients) {
-        if (clients.hasOwnProperty(clientKey)) {
-            var client = clients[clientKey];
-            if (getIp(client) == ip) {
-                bans.add(ip);
-                client.close();
-                success = true;
-                console.log(`MQTT: Banned IP "${ip}"`);
-            }
-        }
-    }
-    reply({
-        success,
-        ip
-    });
-});
-
 function usersChanged() {
     var online = Object.keys(server.clients)
         .filter(c => c.startsWith('mqttjs')).length;
@@ -172,6 +135,43 @@ function start() {
 
     return server;
 };
+
+pmx.action('online', (reply) => {
+    var ips = [];
+    var clients = server.clients;
+    for (var clientKey in clients) {
+        if (clients.hasOwnProperty(clientKey)) {
+            var client = clients[clientKey];
+            var ip = getIp(client);
+            if (ip) {
+                ips.push(ip);
+            }
+        }
+    }
+    reply({
+        ips
+    });
+});
+
+pmx.action('ban', (ip, reply) => {
+    var success = false;
+    var clients = server.clients;
+    for (var clientKey in clients) {
+        if (clients.hasOwnProperty(clientKey)) {
+            var client = clients[clientKey];
+            if (getIp(client) == ip) {
+                bans.add(ip);
+                client.close();
+                success = true;
+                console.log(`MQTT: Banned IP "${ip}"`);
+            }
+        }
+    }
+    reply({
+        success,
+        ip
+    });
+});
 
 module.exports = {
     start
