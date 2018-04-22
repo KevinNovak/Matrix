@@ -41,13 +41,15 @@ app.use(verifyClient);
 
 app.get('/', (request, response) => {
     var ip = request.get('x-real-ip');
-    console.log(`HTTP: IP "${ip}" requested site.`);
-    year = new Date().getFullYear();
-    response.render('index.hbs', {
-        leds: state.leds,
-        colors,
-        year
-    });
+    if (ip) {
+        console.log(`HTTP: IP "${ip}" requested site.`);
+        year = new Date().getFullYear();
+        response.render('index.hbs', {
+            leds: state.leds,
+            colors,
+            year
+        });
+    }
 });
 
 app.get('/api/state', (request, response) => {
