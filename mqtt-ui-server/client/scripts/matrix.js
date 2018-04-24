@@ -64,14 +64,14 @@ function startStream() {
     connectStream();
     player.ws.onclose = (event) => {
         console.log('Stream closed... restarting...');
-        setTimeout(function () {
+        setTimeout(() => {
             connectStream();
         }, 1000);
     };
     player.ws.onerror = (error) => {
         console.error(Error, error);
         console.log('Stream encountered error... restarting...');
-        setTimeout(function () {
+        setTimeout(() => {
             connectStream();
         }, 1000);
     };
