@@ -18,6 +18,8 @@ const clearColor = 'color-18';
 var editingEnabled = false;
 
 var client;
+var player;
+
 var ledButtons, colorButtons, clearButton, setButton;
 var activeColorButton;
 var onlineSpan;
@@ -53,9 +55,26 @@ function registerEvents() {
     clearButton.addEventListener('click', clearAllClicked);
 }
 
-function startStream() {
-    var player = new WSAvcPlayer(liveStreamCanvas, 'webgl');
+function connectStream() {
     player.connect(streamUrl);
+}
+
+function startStream() {
+    player = new WSAvcPlayer(liveStreamCanvas, 'webgl');
+    connectStream();
+    player.ws.onclose = (event) => {
+        console.log('Stream closed... restarting...');
+        setTimeout(function () {
+            connectStream();
+        }, 1000);
+    };
+    player.ws.onerror = (error) => {
+        console.error(Error, error);
+        console.log('Stream encountered error... restarting...');
+        setTimeout(function () {
+            connectStream();
+        }, 1000);
+    };
 }
 
 // ==============================================
