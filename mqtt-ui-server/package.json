@@ -18,8 +18,9 @@
   "main": "app.js",
   "scripts": {
     "start": "webpack -p && pm2 start app.js --name matrix",
-    "build": "webpack -p",
-    "watch": "webpack --watch"
+    "dev": "webpack -d && node app.js",
+    "build": "webpack -d",
+    "watch": "webpack -w"
   },
   "dependencies": {
     "cors": "2.8.4",
