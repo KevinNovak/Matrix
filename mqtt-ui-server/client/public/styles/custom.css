@@ -1,3 +1,7 @@
+:root {
+    --shadow: 0 1px 5px rgba(104, 104, 104, 0.8);
+}
+
 /* Containers */
 
 #led-grid-container,
@@ -14,15 +18,18 @@
     padding-bottom: 100%;
     border-radius: 5%;
     border: 3px solid black;
+    box-shadow: var(--shadow);
 }
 
 #live-stream-border {
     /* 16:9 Apsect Ratio */
     padding-bottom: 56.25%;
+    box-shadow: var(--shadow);
 }
 
 #description-border {
     height: 100%;
+    box-shadow: var(--shadow);
 }
 
 #led-grid-controller {
@@ -94,6 +101,7 @@
     display: block;
     border: 1.5px solid black;
     margin: 0 auto;
+    box-shadow: var(--shadow);
 }
 
 .btn.led {
