@@ -42,21 +42,24 @@ function usersChanged() {
 }
 
 function isValidClient(client) {
-    return (client && client.connection && client.connection.stream) &&
-        (
-            (
-                client.connection.stream.socket &&
-                client.connection.stream.socket.upgradeReq &&
-                client.connection.stream.socket.upgradeReq.headers
-            ) ||
-            client.connection.stream.remoteAddress
-        );
+    return client &&
+        client.connection &&
+        client.connection.stream;
+}
+
+function isProxyClient(client) {
+    return client.connection.stream.socket &&
+        client.connection.stream.socket.upgradeReq &&
+        client.connection.stream.socket.upgradeReq.headers;
 }
 
 function getIp(client) {
     if (isValidClient(client)) {
-        return client.connection.stream.socket.upgradeReq.headers['x-real-ip'] ||
-            client.connection.stream.remoteAddress;
+        if (isProxyClient(client)) {
+            return client.connection.stream.socket.upgradeReq.headers['x-real-ip'];
+        } else {
+            return client.connection.stream.remoteAddress;
+        }
     }
 }
 
