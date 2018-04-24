@@ -26,8 +26,12 @@ app.use(express.static(path.join(__dirname, './client/public')));
 // Setup cors
 app.use(cors());
 
+function getIp(request) {
+    return request.get('x-real-ip') || request.connection.remoteAddress;
+}
+
 var verifyClient = (request, response, next) => {
-    var ip = request.get('x-real-ip');
+    var ip = getIp(request);
     if (bans.isBanned(ip)) {
         console.log(`HTTP: IP "${ip}" requested site but is banned.`);
         response.status(401).send('You are banned.');
@@ -40,7 +44,7 @@ var verifyClient = (request, response, next) => {
 app.use(verifyClient);
 
 app.get('/', (request, response) => {
-    var ip = request.get('x-real-ip');
+    var ip = getIp(request);
     if (ip) {
         console.log(`HTTP: IP "${ip}" requested site.`);
         year = new Date().getFullYear();
