@@ -69,7 +69,7 @@ function startStream() {
         }, 1000);
     };
     player.ws.onerror = (error) => {
-        console.error(Error, error);
+        console.error('Error:', error);
         console.log('Stream encountered error... restarting...');
         setTimeout(() => {
             connectStream();
